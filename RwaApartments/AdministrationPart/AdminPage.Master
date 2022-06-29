@@ -1,0 +1,105 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="AdminPage.master.cs" Inherits="AdministrationPart.AdminPage" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+
+    <title></title>
+
+    <style>
+        .mar {
+            margin-top: 70px;
+            margin-bottom: 70px;
+        }
+
+        html {
+            position: relative;
+            min-height: 100%;
+        }
+
+        .nav-color{
+            background-color: #f5f5f5;
+        }
+
+        .footer {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            /* Set the fixed height of the footer here */
+            height: 90px;
+            background-color: #f5f5f5;
+        }
+    </style>
+
+    <asp:ContentPlaceHolder ID="Head" runat="server">
+    </asp:ContentPlaceHolder>
+
+    <%--BOOTSTRAP--%>
+    <link href="Content/bootstrap.min.css" rel="stylesheet" />
+
+    <%--CUSTOM CSS--%>
+    <link href="Content/customStyles.css" rel="stylesheet" />
+
+</head>
+
+<body>
+    <form id="form1" runat="server">
+
+        <nav class='navbar fixed-top navbar-expand-lg navbar-light nav-color'>
+            <div class='container-fluid'>
+                <a class='navbar-brand' href='/'>
+                    <img src="Resources/Logo.png" alt="RwaApartments" width="30" height="30" />
+                </a>
+                <button class='navbar-toggler' type='button' data-bs-toggle='collapse' data-bs-target='#navbarSupportedContent' aria-controls='navbarSupportedContent' aria-expanded='false' aria-label='Toggle navigation'>
+                    <span class='navbar-toggler-icon'></span>
+                </button>
+                <div class='collapse navbar-collapse' id='navbarSupportedContent'>
+                    <ul class='navbar-nav me-auto mb-2 mb-lg-0'>
+                        <% if (Session["user"] != null)
+                            { %>
+                        <li class='nav-item'>
+                            <a class='nav-link' href='/Apartments.aspx' runat="server">Apartments</a>
+                        </li>
+                        <li class='nav-item'>
+                            <a class='nav-link' href='/Tags.aspx' runat="server">Tags</a>
+                        </li>
+                        <li class='nav-item'>
+                            <a class='nav-link' href='/Users.aspx' runat="server">Registered users</a>
+                        </li>
+                        <% }  %>
+                    </ul>
+
+                    <% if (Session["user"] != null)
+                        { %>
+                    <ul class='navbar-nav d-flex'>
+                        <li class='nav-item'>
+                            <asp:Button class='nav-link btn btn-danger text-white' ID="btnLogout" runat="server" Text="Logout" OnClick="btnLogout_Click" />
+                        </li>
+                    </ul>
+                    <% }  %>
+                </div>
+            </div>
+        </nav>
+
+        <div class="mar">
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+
+        <footer class="footer">
+            <div class="container py-1">
+                <p class="text-center">&copy Asim Ribo <%: DateTime.Now.Year %> </p>
+                <p class="text-center">Algebra University College</p>
+            </div>
+        </footer>
+    </form>
+
+    <!-- JQUERY -->
+    <script src="Scripts/jquery-3.6.0.min.js"></script>
+
+    <!-- BOOTSTRAP -->
+    <script src="Scripts/bootstrap.min.js"></script>
+</body>
+</html>
