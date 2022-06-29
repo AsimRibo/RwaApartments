@@ -53,7 +53,7 @@ namespace AdministrationPart
             txtMaxChildren.Text = apartment.MaxChildren.ToString();
             txtTotalRooms.Text = apartment.TotalRooms.ToString();
             txtBeachDistance.Text = apartment.BeachDistance.ToString();
-            txtCity.Text = apartment.City;
+            txtCity.Text = apartment.City.NameCity;
             txtPrice.Text = apartment.Price.ToString("F");
 
             apartment.Images = ((IRepository)Application["database"]).GetApartmentImages(apartment.Id);

@@ -69,6 +69,12 @@ namespace RwaUtilities.DAL
                     OwnerName = row[nameof(ApartmentOwner.OwnerName)].ToString(),
                 };
 
+                City city = new City
+                {
+                    IdCity = (int)row[nameof(City.IdCity)],
+                    NameCity = row[nameof(City.NameCity)].ToString()
+                };
+
                 apartments.Add(new Apartment
                 {
                     Id = (int)row[nameof(Apartment.Id)],
@@ -82,7 +88,7 @@ namespace RwaUtilities.DAL
                     TotalRooms = (int)row[nameof(Apartment.TotalRooms)],
                     BeachDistance = (int)row[nameof(Apartment.BeachDistance)],
                     Owner = owner,
-                    City = row[nameof(Apartment.City)].ToString(),
+                    City = city,
                     Status = (ApartmentStatus)Enum.Parse(typeof(ApartmentStatus), row[nameof(Apartment.Status)].ToString())
                 });
             }
@@ -180,6 +186,12 @@ namespace RwaUtilities.DAL
                 OwnerName = apartmentTable.Rows[0][nameof(ApartmentOwner.OwnerName)].ToString(),
             };
 
+            City city = new City
+            {
+                IdCity = (int)apartmentTable.Rows[0][nameof(City.IdCity)],
+                NameCity = apartmentTable.Rows[0][nameof(City.NameCity)].ToString()
+            };
+
             return new Apartment
             {
                 Id = (int)apartmentTable.Rows[0][nameof(Apartment.Id)],
@@ -193,7 +205,7 @@ namespace RwaUtilities.DAL
                 TotalRooms = (int)apartmentTable.Rows[0][nameof(Apartment.TotalRooms)],
                 BeachDistance = (int)apartmentTable.Rows[0][nameof(Apartment.BeachDistance)],
                 Owner = owner,
-                City = apartmentTable.Rows[0][nameof(Apartment.City)].ToString(),
+                City = city,
                 Status = (ApartmentStatus)Enum.Parse(typeof(ApartmentStatus), apartmentTable.Rows[0][nameof(Apartment.Status)].ToString())
             };
         }

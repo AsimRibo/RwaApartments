@@ -6,3 +6,11 @@ C:\Users\asim2\Desktop\ALGEBRA\6. semestar\Razvoj web aplikacija\Projekt-rješen
 C:\Users\asim2\Desktop\ALGEBRA\6. semestar\Razvoj web aplikacija\Projekt-rješenja\Projekt-pocetak\RwaApartments\RwaUtilities\obj\Debug\RwaUtilities.csproj.CopyComplete
 C:\Users\asim2\Desktop\ALGEBRA\6. semestar\Razvoj web aplikacija\Projekt-rješenja\Projekt-pocetak\RwaApartments\RwaUtilities\obj\Debug\RwaUtilities.dll
 C:\Users\asim2\Desktop\ALGEBRA\6. semestar\Razvoj web aplikacija\Projekt-rješenja\Projekt-pocetak\RwaApartments\RwaUtilities\obj\Debug\RwaUtilities.pdb
+C:\Users\asim2\Desktop\RWA\RwaApartments\RwaUtilities\bin\Debug\RwaUtilities.dll
+C:\Users\asim2\Desktop\RWA\RwaApartments\RwaUtilities\bin\Debug\RwaUtilities.pdb
+C:\Users\asim2\Desktop\RWA\RwaApartments\RwaUtilities\bin\Debug\Microsoft.ApplicationBlocks.Data.dll
+C:\Users\asim2\Desktop\RWA\RwaApartments\RwaUtilities\obj\Debug\RwaUtilities.csproj.AssemblyReference.cache
+C:\Users\asim2\Desktop\RWA\RwaApartments\RwaUtilities\obj\Debug\RwaUtilities.csproj.CoreCompileInputs.cache
+C:\Users\asim2\Desktop\RWA\RwaApartments\RwaUtilities\obj\Debug\RwaUtilities.csproj.CopyComplete
+C:\Users\asim2\Desktop\RWA\RwaApartments\RwaUtilities\obj\Debug\RwaUtilities.dll
+C:\Users\asim2\Desktop\RWA\RwaApartments\RwaUtilities\obj\Debug\RwaUtilities.pdb

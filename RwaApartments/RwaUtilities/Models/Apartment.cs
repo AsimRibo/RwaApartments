@@ -15,7 +15,7 @@ namespace RwaUtilities.Models
 
         public string NameEng { get; set; }
 
-        public string City { get; set; }
+        public City City { get; set; }
 
         public DateTime CreatedAt { get; set; }
 

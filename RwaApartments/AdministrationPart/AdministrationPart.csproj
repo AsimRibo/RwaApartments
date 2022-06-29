@@ -66,6 +66,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AddTag.ascx" />
+    <Content Include="ApartmentAdd.aspx" />
     <Content Include="ApartmentDetails.aspx" />
     <Content Include="Apartments.aspx" />
     <Content Include="Content\bootstrap-grid.css" />
@@ -143,6 +144,13 @@
     </Compile>
     <Compile Include="AdminPage.Master.designer.cs">
       <DependentUpon>AdminPage.Master</DependentUpon>
+    </Compile>
+    <Compile Include="ApartmentAdd.aspx.cs">
+      <DependentUpon>ApartmentAdd.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ApartmentAdd.aspx.designer.cs">
+      <DependentUpon>ApartmentAdd.aspx</DependentUpon>
     </Compile>
     <Compile Include="ApartmentDetails.aspx.cs">
       <DependentUpon>ApartmentDetails.aspx</DependentUpon>
