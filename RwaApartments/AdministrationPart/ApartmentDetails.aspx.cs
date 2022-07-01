@@ -66,7 +66,8 @@ namespace AdministrationPart
 
         private void HandleApartmentImages(Apartment apartment)
         {
-            imgActive.Src = $"{Constants.PicturePath}{apartment.Images.ElementAt(0).Guid}.jpg";
+            //imgActive.Src = $"{Constants.PicturePath}{apartment.Images.ElementAt(0).Guid}.jpg";
+            imgActive.Src = apartment.Images.ElementAt(0).Path;
             lblDescription.Text = $"{apartment.Images.ElementAt(0).Name}";
 
 
@@ -80,7 +81,8 @@ namespace AdministrationPart
         {
             StringBuilder sb = new StringBuilder();
             sb.AppendLine("<div class=\"carousel-item\">");
-            sb.AppendLine($"<img src=\"Images\\{image.Guid}.jpg\" class=\"d-block w-100\" alt=\"Picture\" style=\"height: 25rem\">");
+            //sb.AppendLine($"<img src=\"Images\\{image.Guid}.jpg\" class=\"d-block w-100\" alt=\"Picture\" style=\"height: 25rem\">");
+            sb.AppendLine($"<img src=\"{image.Path}\" class=\"d-block w-100\" alt=\"Picture\" style=\"height: 25rem\">");
             sb.AppendLine("<div class=\"carousel-caption d-none d-md-block\">");
             sb.AppendLine($"<label>{image.Name}</label>");
             sb.AppendLine("</div>");

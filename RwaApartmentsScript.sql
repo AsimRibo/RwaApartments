@@ -190,3 +190,69 @@ GO
 UPDATE ApartmentPicture
 SET DeletedAt = GETDATE()
 WHERE Id IN (6, 7, 8, 9, 10, 12, 13, 14, 19, 20, 21, 22, 24, 25, 27, 28, 30, 31, 32, 35, 36)
+
+--Setting picture paths
+UPDATE ApartmentPicture
+SET Path = 'Images\D33CDE78-B19B-478D-99B8-037936B4A64C.jpg'
+WHERE Id = 2
+GO
+
+UPDATE ApartmentPicture
+SET Path = 'Images\3F46F64C-605E-4B4C-9292-683AE3984091.jpg'
+WHERE Id = 4
+GO
+
+UPDATE ApartmentPicture
+SET Path = 'Images\31294E1F-B813-4DCB-92F4-5180D22B55F0.jpg'
+WHERE Id = 5
+GO
+
+UPDATE ApartmentPicture
+SET Path = 'Images\EEB17E09-39F2-4854-B289-9E06E51B503C.jpg'
+WHERE Id = 11
+GO
+
+UPDATE ApartmentPicture
+SET Path = 'Images\1F99FA36-8865-49D1-8EDC-9A8C4A7EBE68.jpg'
+WHERE Id = 15
+GO
+
+UPDATE ApartmentPicture
+SET Path = 'Images\90D05427-3F84-43C1-9736-A2F9CC4F246F.jpg'
+WHERE Id = 16
+GO
+
+UPDATE ApartmentPicture
+SET Path = 'Images\6AAE0268-BBFF-41A5-BDF6-E0B042A071E3.jpg'
+WHERE Id = 17
+GO
+
+UPDATE ApartmentPicture
+SET Path = 'Images\3CC42A12-800C-45CB-BB3D-60A5D86E6305.jpg'
+WHERE Id = 18
+GO
+
+UPDATE ApartmentPicture
+SET Path = 'Images\42258C7E-DE09-45E4-9751-DBDD7F75E435.jpg'
+WHERE Id = 23
+GO
+
+UPDATE ApartmentPicture
+SET Path = 'Images\2D50BC81-CEB1-4255-84FD-7AAFD6349CE9.jpg'
+WHERE Id = 26
+GO
+
+UPDATE ApartmentPicture
+SET Path = 'Images\46532854-8330-43BF-B32E-4852B6249711.jpg'
+WHERE Id = 29
+GO
+
+UPDATE ApartmentPicture
+SET Path = 'Images\4FAD7681-05DB-4ECD-96DF-055A24E0FC45.jpg'
+WHERE Id = 33
+GO
+
+UPDATE ApartmentPicture
+SET Path = 'Images\EF31F15C-5A8A-4EBF-8B7F-156365852016.jpg'
+WHERE Id = 34
+GO

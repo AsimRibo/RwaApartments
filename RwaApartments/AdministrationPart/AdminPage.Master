@@ -18,7 +18,7 @@
             min-height: 100%;
         }
 
-        .nav-color{
+        .nav-color {
             background-color: #f5f5f5;
         }
 
@@ -30,6 +30,26 @@
             /* Set the fixed height of the footer here */
             height: 90px;
             background-color: #f5f5f5;
+        }
+
+        /* Chrome, Edge, and Safari */
+        .checkboxContainer::-webkit-scrollbar {
+            display: none;
+        }
+
+        .gridViewContainer::-webkit-scrollbar {
+            display: none;
+        }
+
+
+        .checkboxContainer {
+            overflow-y: scroll;
+            height: 15.5vh;
+        }
+
+        .gridViewContainer{
+            overflow-y: scroll;
+            height: 37vh;
         }
     </style>
 

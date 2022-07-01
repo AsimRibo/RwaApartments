@@ -9,83 +9,125 @@
         <%--First row--%>
         <div class="row mb-2 justify-content-center">
             <div class="form-group col-sm-3">
-                <label for="txtName">Name</label>
+                <label>Name</label>
                 <asp:TextBox runat="server" ID="txtName" CssClass="form-control"></asp:TextBox>
+                <asp:RequiredFieldValidator ID="rfvTxtName" runat="server" ControlToValidate="txtName" Display="Dynamic" ForeColor="Red">* Can't be empty</asp:RequiredFieldValidator>
             </div>
 
             <div class="form-group col-sm-3">
-                <label for="txtOwner">Owner</label>
-                <asp:TextBox runat="server" ID="txtOwner" CssClass="form-control"></asp:TextBox>
+                <label>Name eng</label>
+                <asp:TextBox runat="server" ID="txtNameEng" CssClass="form-control"></asp:TextBox>
+                <asp:RequiredFieldValidator ID="rfvTxtNameEng" runat="server" ControlToValidate="txtNameEng" Display="Dynamic" ForeColor="Red">* Can't be empty</asp:RequiredFieldValidator>
             </div>
 
             <div class="form-group col-sm-2">
-                <label for="txtCreatedAt">Created at</label>
-                <asp:TextBox runat="server" ID="txtCreatedAt" CssClass="form-control"></asp:TextBox>
+                <label>Price</label>
+                <asp:TextBox runat="server" ID="txtPrice" CssClass="form-control"></asp:TextBox>
+                <asp:RequiredFieldValidator ID="rfvTxtPrice" runat="server" ControlToValidate="txtPrice" Display="Dynamic" ForeColor="Red">* Can't be empty</asp:RequiredFieldValidator>
+                <asp:CompareValidator ID="cvPrice" runat="server" ForeColor="Red" Display="Dynamic" ControlToValidate="txtPrice" Operator="DataTypeCheck" Type="Currency">* Must be a number</asp:CompareValidator>
             </div>
         </div>
 
-        
-        
+
+
         <%--Second row--%>
         <div class="row mb-2 justify-content-center">
             <div class="form-group col-sm-2">
-                <label for="txtMaxAdults">Max adults</label>
-                <asp:TextBox runat="server" ID="txtMaxAdults" CssClass="form-control" ReadOnly="true"></asp:TextBox>
+                <label>Max adults</label>
+                <asp:TextBox runat="server" ID="txtMaxAdults" CssClass="form-control"></asp:TextBox>
+                <asp:RequiredFieldValidator ID="rfvTxtMaxAdults" runat="server" ControlToValidate="txtMaxAdults" Display="Dynamic" ForeColor="Red">* Can't be empty</asp:RequiredFieldValidator>
+                <asp:CompareValidator ID="cvTxtMaxAdults" runat="server" ControlToValidate="txtMaxAdults" ForeColor="Red" Display="Dynamic" Operator="DataTypeCheck" Type="Integer">* Must be a number</asp:CompareValidator>
             </div>
 
             <div class="form-group col-sm-2">
-                <label for="txtMaxChildren">Max children</label>
-                <asp:TextBox runat="server" ID="txtMaxChildren" CssClass="form-control" ReadOnly="true"></asp:TextBox>
+                <label>Max children</label>
+                <asp:TextBox runat="server" ID="txtMaxChildren" CssClass="form-control"></asp:TextBox>
+                <asp:RequiredFieldValidator ID="rfvTxtMaxChildren" runat="server" ControlToValidate="txtMaxChildren" Display="Dynamic" ForeColor="Red">* Can't be empty</asp:RequiredFieldValidator>
+                <asp:CompareValidator ID="cvTxtMaxChildren" runat="server" ControlToValidate="txtMaxChildren" ForeColor="Red" Display="Dynamic" Operator="DataTypeCheck" Type="Integer">* Must be a number</asp:CompareValidator>
             </div>
 
             <div class="form-group col-sm-2">
-                <label for="txtTotalRooms">Total rooms</label>
-                <asp:TextBox runat="server" ID="txtTotalRooms" CssClass="form-control" ReadOnly="true"></asp:TextBox>
+                <label>Total rooms</label>
+                <asp:TextBox runat="server" ID="txtTotalRooms" CssClass="form-control"></asp:TextBox>
+                <asp:RequiredFieldValidator ID="rfvTxtTotalRooms" runat="server" ControlToValidate="txtTotalRooms" Display="Dynamic" ForeColor="Red">* Can't be empty</asp:RequiredFieldValidator>
+                <asp:CompareValidator ID="cvTxtTotalRooms" runat="server" ControlToValidate="txtTotalRooms" ForeColor="Red" Display="Dynamic" Operator="DataTypeCheck" Type="Integer">* Must be a number</asp:CompareValidator>
             </div>
 
             <div class="form-group col-sm-2">
-                <label for="txtBeachDistance">Beach distance</label>
-                <asp:TextBox runat="server" ID="txtBeachDistance" CssClass="form-control" ReadOnly="true"></asp:TextBox>
+                <label>Beach distance</label>
+                <asp:TextBox runat="server" ID="txtBeachDistance" CssClass="form-control"></asp:TextBox>
+                <asp:RequiredFieldValidator ID="rfvTxtBeachDistance" runat="server" ControlToValidate="txtBeachDistance" Display="Dynamic" ForeColor="Red">* Can't be empty</asp:RequiredFieldValidator>
+                <asp:CompareValidator ID="cvTxtBeachDistance" runat="server" ControlToValidate="txtBeachDistance" ForeColor="Red" Display="Dynamic" Operator="DataTypeCheck" Type="Integer">* Must be a number</asp:CompareValidator>
             </div>
         </div>
 
-        
+
         <%--Third row--%>
         <div class="row mb-2 justify-content-center">
-            <div class="form-group col-sm-6">
-                <label for="txtCity">City</label>
-                <asp:TextBox runat="server" ID="txtCity" CssClass="form-control" ReadOnly="true"></asp:TextBox>
+            <div class="col-sm-5">
+                <div class="form-group mb-3">
+                    <label>City</label>
+                    <asp:DropDownList runat="server" ID="ddlCity" CssClass="form-select"></asp:DropDownList>
+                </div>
+
+
+                <div class="form-group">
+                    <label>Owner</label>
+                    <asp:DropDownList runat="server" ID="ddlOwners" CssClass="form-select"></asp:DropDownList>
+                </div>
             </div>
 
-            <div class="form-group col-sm-2">
-                <label for="txtPrice">Price</label>
-                <asp:TextBox runat="server" ID="txtPrice" CssClass="form-control" ReadOnly="true"></asp:TextBox>
+
+            <div class="form-group col-sm-3">
+                <label>Tags</label>
+                <div class="border">
+                    <div class="checkboxContainer">
+                        <asp:CheckBoxList runat="server" ID="chbListTags" CssClass="form-check">
+                        </asp:CheckBoxList>
+                    </div>
+                </div>
             </div>
         </div>
 
-        
         <%--Fourth row--%>
         <div class="row mb-2 justify-content-center">
-            <div class="form-group col-sm-4">
-                <label for="txtStatus">Status</label>
-                <asp:TextBox runat="server" ID="txtStatus" CssClass="form-control" ReadOnly="true"></asp:TextBox>
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <asp:FileUpload ID="fuImage" runat="server" CssClass="my-3" accept=".jpg, .jpeg .png" />
+                </div>
+                <div class="form-group">
+                    <asp:Button runat="server" ID="btnAddImage" OnClick="btnAddImage_Click" Text="Add" CssClass="btn btn-primary" />
+                </div>
             </div>
 
-            <div class="form-group col-sm-4">
-                <label for="txtReservedBy">Reserved by</label>
-                <asp:TextBox runat="server" ID="txtReservedBy" CssClass="form-control" ReadOnly="true"></asp:TextBox>
+            <div class="col-sm-5">
+                <div class="gridViewContainer border mt-2">
+                    <asp:GridView runat="server" ID="gwImages" AutoGenerateColumns="false" ShowHeader="false" ShowFooter="false" CssClass="table table-borderless" BorderStyle="None">
+                    <Columns>
+                        <asp:TemplateField>
+                            <ItemTemplate>
+                                <div class="mb-3">
+                                    <asp:Image ID="imgApartment" ImageUrl='<%#Eval(nameof(RwaUtilities.Models.ApartmentImage.Path))%>' runat="server" Height="150" Width="250" CssClass="mx-auto d-block" />
+                                </div>
+                                <div class="mb-3" style="display: flex; flex-direction: row; align-items: center; justify-content: space-between">
+                                    <asp:TextBox ID="txtName" runat="server" CssClass="form-control"></asp:TextBox>
+                                    <asp:RequiredFieldValidator ID="rfvTxtName" runat="server" ControlToValidate="txtName" Display="Dynamic" ForeColor="Red">*</asp:RequiredFieldValidator>
+                                </div>
+                                <div class="mb-3" style="display: flex; flex-direction: row; align-items: center; justify-content: space-between">
+                                    <asp:LinkButton ID="btnDeleteImage" CssClass="btn btn-danger" runat="server" CommandArgument="<%#Eval(nameof(RwaUtilities.Models.ApartmentImage.Guid)) %>" OnClick="btnDeleteImage_Click" Text="Delete"></asp:LinkButton>
+                                    <div style="display: flex; flex-direction: row; align-items: center; gap: .5em">
+                                        <asp:LinkButton runat="server" ID="btnSetRepresentative" CssClass="btn btn-secondary" Text="Set representative"></asp:LinkButton>
+                                    </div>
+                                </div>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                    </Columns>
+                </asp:GridView>
+                </div>
             </div>
         </div>
 
-        
-        <%--Fifth row--%>
-        <div class="row mb-2 justify-content-center">
-
-            <div class="form-group col-sm-8">
-                <label for="blTags">Tags</label>
-                <asp:BulletedList runat="server" ID="blTags" CssClass="border h-50 overflow-auto bg-light"></asp:BulletedList>
-            </div>
-
-        </div>
+        <asp:Button runat="server" ID="btnAdd" Text="Add apartment" CssClass="btn btn-success mb-5" OnClick="btnAdd_Click" />
+        <asp:Label runat="server" ID="lblTemp"></asp:Label>
     </div>
 </asp:Content>

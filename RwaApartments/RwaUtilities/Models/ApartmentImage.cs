@@ -15,6 +15,7 @@ namespace RwaUtilities.Models
         public string Path { get; set; }
         public string Name { get; set; }
         public bool IsRepresentative { get; set; }
+        public bool DoDelete { get; set; } 
 
     }
 }

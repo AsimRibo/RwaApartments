@@ -27,8 +27,6 @@ namespace RwaUtilities.Models
 
         public IList<Tag> Tags { get; set; }
 
-        public IList<string> PictureNames { get; set; }
-
         public IList<ApartmentImage> Images { get; set; }
 
         public decimal Price { get; set; }
