@@ -16,11 +16,26 @@ namespace RwaUtilities.DAL
     {
         private static string Cs = ConfigurationManager.ConnectionStrings["cs"].ConnectionString;
 
+        public int AddApartment(Apartment apartment, int cityId, int ownerId)
+        {
+            var id = SqlHelper.ExecuteScalar(Cs, nameof(AddApartment), apartment.CreatedAt, ownerId, cityId, apartment.Name, apartment.NameEng, apartment.Price, apartment.MaxAdults, apartment.MaxChildren, apartment.TotalRooms, apartment.BeachDistance);
+            return int.Parse(id.ToString());
+        }
+
+        public void AddApartmentImage(ApartmentImage image, int apartmentId)
+        {
+            SqlHelper.ExecuteNonQuery(Cs, nameof(AddApartmentImage), image.Guid, image.CreatedAt, apartmentId, image.Path, image.Name, image.IsRepresentative);
+        }
 
         public int AddTag(Tag tag)
         {
             var id = SqlHelper.ExecuteScalar(Cs, nameof(AddTag), tag.Name, tag.NameEng, tag.CreatedAt, tag.TagType.Id);
             return int.Parse(id.ToString());
+        }
+
+        public void AddTagForApartment(int tag, int apartmentId)
+        {
+            SqlHelper.ExecuteNonQuery(Cs, nameof(AddTagForApartment), apartmentId, tag);
         }
 
         public User AuthenticateUser(string username, string password)
@@ -97,7 +112,44 @@ namespace RwaUtilities.DAL
 
         }
 
+        public IList<City> GetAllCities()
+        {
+            IList<City> cities = new List<City>();
 
+            DataTable citiesTable = SqlHelper.ExecuteDataset(Cs, nameof(GetAllCities)).Tables[0];
+
+
+            foreach (DataRow row in citiesTable.Rows)
+            {
+                cities.Add(new City
+                {
+                    IdCity = (int)row[nameof(City.IdCity)],
+                    NameCity = row[nameof(City.NameCity)].ToString(),
+                });
+            }
+
+            return cities;
+        }
+
+        public IList<ApartmentOwner> GetAllOwners()
+        {
+            IList<ApartmentOwner> owners = new List<ApartmentOwner>();
+
+            DataTable ownersTable = SqlHelper.ExecuteDataset(Cs, nameof(GetAllOwners)).Tables[0];
+
+
+            foreach (DataRow row in ownersTable.Rows)
+            {
+                owners.Add(new ApartmentOwner
+                {
+                    OwnerId = (int)row[nameof(ApartmentOwner.OwnerId)],
+                    OwnerCreatedAt = DateTime.Parse(row[nameof(ApartmentOwner.OwnerCreatedAt)].ToString()),
+                    OwnerName = row[nameof(ApartmentOwner.OwnerName)].ToString(),
+                });
+            }
+
+            return owners;
+        }
 
         public IList<Tag> GetAllTags()
         {

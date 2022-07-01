@@ -5,6 +5,13 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder" runat="server">
     <div class="container">
+        <%--Message output--%>
+        <asp:Panel ID="panelMessage" runat="server" CssClass="container mt-5" Visible="false">
+            <div class="alert alert-danger" role="alert">
+                <label>You must select at least one tag</label>
+            </div>
+        </asp:Panel>
+
 
         <%--First row--%>
         <div class="row mb-2 justify-content-center">
@@ -82,7 +89,7 @@
                 <label>Tags</label>
                 <div class="border">
                     <div class="checkboxContainer">
-                        <asp:CheckBoxList runat="server" ID="chbListTags" CssClass="form-check">
+                        <asp:CheckBoxList runat="server" ID="chbListTags" CssClass="form-check" >
                         </asp:CheckBoxList>
                     </div>
                 </div>
@@ -93,16 +100,16 @@
         <div class="row mb-2 justify-content-center">
             <div class="col-sm-3">
                 <div class="form-group">
-                    <asp:FileUpload ID="fuImage" runat="server" CssClass="my-3" accept=".jpg, .jpeg .png" />
+                    <asp:FileUpload ID="fuImage" runat="server" CssClass="my-3" accept=".jpg, .jpeg, .png" />
                 </div>
                 <div class="form-group">
-                    <asp:Button runat="server" ID="btnAddImage" OnClick="btnAddImage_Click" Text="Add" CssClass="btn btn-primary" />
+                    <asp:Button runat="server" ID="btnAddImage" OnClick="btnAddImage_Click" CausesValidation="false" Text="Add" CssClass="btn btn-primary" />
                 </div>
             </div>
 
             <div class="col-sm-5">
                 <div class="gridViewContainer border mt-2">
-                    <asp:GridView runat="server" ID="gwImages" AutoGenerateColumns="false" ShowHeader="false" ShowFooter="false" CssClass="table table-borderless" BorderStyle="None">
+                    <asp:GridView runat="server" ID="gvImages" AutoGenerateColumns="false" ShowHeader="false" ShowFooter="false" CssClass="table table-borderless" BorderStyle="None">
                     <Columns>
                         <asp:TemplateField>
                             <ItemTemplate>
@@ -115,8 +122,9 @@
                                 </div>
                                 <div class="mb-3" style="display: flex; flex-direction: row; align-items: center; justify-content: space-between">
                                     <asp:LinkButton ID="btnDeleteImage" CssClass="btn btn-danger" runat="server" CommandArgument="<%#Eval(nameof(RwaUtilities.Models.ApartmentImage.Guid)) %>" OnClick="btnDeleteImage_Click" Text="Delete"></asp:LinkButton>
+                                    <asp:Label runat="server" ID="lblGuid" Visible="false" Text="<%#Eval(nameof(RwaUtilities.Models.ApartmentImage.Guid)) %>"></asp:Label>
                                     <div style="display: flex; flex-direction: row; align-items: center; gap: .5em">
-                                        <asp:LinkButton runat="server" ID="btnSetRepresentative" CssClass="btn btn-secondary" Text="Set representative"></asp:LinkButton>
+                                        <asp:LinkButton runat="server" ID="btnSetRepresentative" CssClass="btn btn-secondary" Text="Set representative" CommandArgument="<%#Eval(nameof(RwaUtilities.Models.ApartmentImage.Guid)) %>" OnClick="btnSetRepresentative_Click"></asp:LinkButton>
                                     </div>
                                 </div>
                             </ItemTemplate>

@@ -185,6 +185,59 @@ FROM ApartmentPicture AS ap
 WHERE ap.ApartmentId = @Id AND ap.DeletedAt IS NULL
 GO
 
+--Get all cities
+CREATE PROCEDURE GetAllCities
+AS
+SELECT Id AS IdCity, Name AS NameCity
+FROM City
+GO
+
+--Get all apartment owners
+CREATE PROCEDURE GetAllOwners
+AS
+SELECT Id AS OwnerId, CreatedAt AS OwnerCreatedAt, Name AS OwnerName
+FROM ApartmentOwner
+GO
+
+--Insert new apartment
+CREATE PROCEDURE AddApartment
+	@CreatedAt datetime,
+	@OwnerId int,
+	@CityId int,
+	@Name nvarchar(250),
+	@NameEng nvarchar(250),
+	@Price money,
+	@MaxAdults int,
+	@MaxChildren int,
+	@TotalRooms int,
+	@BeachDistance int
+AS
+INSERT INTO Apartment(Guid, CreatedAt, OwnerId, TypeId, StatusId, CityId, Name, NameEng, Price, MaxAdults, MaxChildren, TotalRooms, BeachDistance)
+VALUES(NEWID(), @CreatedAt, @OwnerId, 999, 3, @CityId, @Name, @NameEng, @Price, @MaxAdults, @MaxChildren, @TotalRooms, @BeachDistance)
+SELECT SCOPE_IDENTITY()
+GO
+
+--Insert tag for an apartment
+CREATE PROCEDURE AddTagForApartment
+	@ApartmentId int,
+	@TagId int
+AS
+INSERT INTO TaggedApartment(Guid, ApartmentId, TagId)
+VALUES(NEWID(), @ApartmentId, @TagId)
+GO
+
+--Insert apartment picture
+CREATE PROCEDURE AddApartmentImage
+	@Guid uniqueidentifier,
+	@CreatedAt datetime,
+	@ApartmentId int,
+	@Path nvarchar(250),
+	@Name nvarchar(250),
+	@IsRepresentative bit
+AS
+INSERT INTO ApartmentPicture(Guid, CreatedAt, ApartmentId, Path, Name, IsRepresentative)
+VALUES(@Guid, @CreatedAt, @ApartmentId, @Path, @Name, @IsRepresentative)
+GO
 
 --Disabling some of the pictures
 UPDATE ApartmentPicture

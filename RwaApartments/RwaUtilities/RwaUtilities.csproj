@@ -45,7 +45,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Constants.cs" />
     <Compile Include="Crypto\Cryptography.cs" />
     <Compile Include="DAL\DBRepository.cs" />
     <Compile Include="DAL\IRepository.cs" />

@@ -39,5 +39,15 @@ namespace RwaUtilities.DAL
         IList<Tag> GetApartmentTags(int id);
 
         IList<ApartmentImage> GetApartmentImages(int id);
+
+        IList<City> GetAllCities();
+
+        IList<ApartmentOwner> GetAllOwners();
+
+        int AddApartment(Apartment apartment, int cityId, int ownerId);
+
+        void AddTagForApartment(int tag, int apartmentId);
+
+        void AddApartmentImage(ApartmentImage image, int apartmentId);
     }
 }

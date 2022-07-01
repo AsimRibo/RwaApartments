@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace RwaUtilities.Models
 {
+    [Serializable]
     public class ApartmentImage
     {
         public int Id { get; set; }
@@ -14,8 +15,8 @@ namespace RwaUtilities.Models
         public DateTime? DeletedAt { get; set; } = null;
         public string Path { get; set; }
         public string Name { get; set; }
-        public bool IsRepresentative { get; set; }
-        public bool DoDelete { get; set; } 
+        public bool IsRepresentative { get; set; } = false;
+        public bool DoDelete { get; set; } = false;
 
     }
 }

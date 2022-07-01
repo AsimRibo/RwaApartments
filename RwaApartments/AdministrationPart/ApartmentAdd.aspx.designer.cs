@@ -15,6 +15,15 @@ namespace AdministrationPart
     {
 
         /// <summary>
+        /// panelMessage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel panelMessage;
+
+        /// <summary>
         /// txtName control.
         /// </summary>
         /// <remarks>
@@ -231,13 +240,13 @@ namespace AdministrationPart
         protected global::System.Web.UI.WebControls.Button btnAddImage;
 
         /// <summary>
-        /// gwImages control.
+        /// gvImages control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gwImages;
+        protected global::System.Web.UI.WebControls.GridView gvImages;
 
         /// <summary>
         /// btnAdd control.
