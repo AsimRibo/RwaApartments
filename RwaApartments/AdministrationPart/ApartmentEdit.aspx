@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/AdminPage.Master" AutoEventWireup="true" CodeBehind="ApartmentAdd.aspx.cs" Inherits="AdministrationPart.ApartmentAdd" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/AdminPage.Master" AutoEventWireup="true" CodeBehind="ApartmentEdit.aspx.cs" Inherits="AdministrationPart.ApartmentEdit" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Head" runat="server">
 </asp:Content>
@@ -15,13 +15,13 @@
 
         <%--First row--%>
         <div class="row mb-2 justify-content-center">
-            <div class="form-group col-sm-3">
+            <div class="form-group col-sm-2">
                 <label>Name</label>
                 <asp:TextBox runat="server" ID="txtName" CssClass="form-control"></asp:TextBox>
                 <asp:RequiredFieldValidator ID="rfvTxtName" runat="server" ControlToValidate="txtName" Display="Dynamic" ForeColor="Red">* Can't be empty</asp:RequiredFieldValidator>
             </div>
 
-            <div class="form-group col-sm-3">
+            <div class="form-group col-sm-2">
                 <label>Name eng</label>
                 <asp:TextBox runat="server" ID="txtNameEng" CssClass="form-control"></asp:TextBox>
                 <asp:RequiredFieldValidator ID="rfvTxtNameEng" runat="server" ControlToValidate="txtNameEng" Display="Dynamic" ForeColor="Red">* Can't be empty</asp:RequiredFieldValidator>
@@ -32,6 +32,11 @@
                 <asp:TextBox runat="server" ID="txtPrice" CssClass="form-control"></asp:TextBox>
                 <asp:RequiredFieldValidator ID="rfvTxtPrice" runat="server" ControlToValidate="txtPrice" Display="Dynamic" ForeColor="Red">* Can't be empty</asp:RequiredFieldValidator>
                 <asp:CompareValidator ID="cvPrice" runat="server" ForeColor="Red" Display="Dynamic" ControlToValidate="txtPrice" Operator="DataTypeCheck" Type="Currency">* Must be a number</asp:CompareValidator>
+            </div>
+
+            <div class="col-sm-2">
+                <label>Status</label>
+                <asp:DropDownList runat="server" ID="ddlStatus" CssClass="form-select" AutoPostBack="true"></asp:DropDownList>
             </div>
         </div>
 
@@ -96,6 +101,68 @@
             </div>
         </div>
 
+        <% if (ddlStatus.SelectedItem.ToString() != RwaUtilities.Models.ApartmentStatus.Vacant.ToString())
+                {
+            %>
+        <div class="row mb-2 justify-content-center">
+            <div class="col-sm-2">
+                <label>Registered</label>
+                <asp:CheckBox runat="server" ID="chbTypeOfUser" CssClass="form-check" AutoPostBack="true" />
+            </div>
+            <%  if (ddlStatus.SelectedItem.ToString() != RwaUtilities.Models.ApartmentStatus.Vacant.ToString() && chbTypeOfUser.Checked)
+                {
+            %>
+            <div class="col-sm-6">
+                <label>User</label>
+                <asp:DropDownList runat="server" ID="ddlUsers" CssClass="form-select"></asp:DropDownList>
+            </div>
+            <%   }
+                else if(ddlStatus.SelectedItem.ToString() != RwaUtilities.Models.ApartmentStatus.Vacant.ToString() && !chbTypeOfUser.Checked)
+                {  %>
+            <div class="col-sm-3">
+                <label>Username</label>
+                <asp:TextBox runat="server" ID="txtUsername" CssClass="form-control"></asp:TextBox>
+                <asp:RequiredFieldValidator ID="rfvTxtUsername" runat="server" ControlToValidate="txtUsername" Display="Dynamic" ForeColor="Red">* Can't be empty</asp:RequiredFieldValidator>
+            </div>
+
+            <div class="col-sm-3">
+                <label>Phone</label>
+                <asp:TextBox runat="server" ID="txtPhone" CssClass="form-control"></asp:TextBox>
+                <asp:RequiredFieldValidator ID="rfvTxtPhone" runat="server" ControlToValidate="txtPhone" Display="Dynamic" ForeColor="Red">* Can't be empty</asp:RequiredFieldValidator>
+                <asp:CompareValidator ID="cvTxtPhone" runat="server" ControlToValidate="txtPhone" ForeColor="Red" Display="Dynamic" Operator="DataTypeCheck" Type="Integer">* Must be a number</asp:CompareValidator>
+            </div>
+            <% } %>
+        </div>
+
+        <% if (ddlStatus.SelectedItem.ToString() != RwaUtilities.Models.ApartmentStatus.Vacant.ToString())
+            { %>
+        <div class="row mb-2 justify-content-center">
+            <div class="col-sm-8">
+                <label>Details</label>
+                <asp:TextBox runat="server" ID="txtDetails" CssClass="form-control" TextMode="MultiLine" Style="resize: none;"></asp:TextBox>
+                <asp:RequiredFieldValidator ID="rfvTxtDetails" runat="server" ControlToValidate="txtDetails" Display="Dynamic" ForeColor="Red">* Can't be empty</asp:RequiredFieldValidator>
+            </div>
+        </div>
+        <% }
+            if (ddlStatus.SelectedItem.ToString() != RwaUtilities.Models.ApartmentStatus.Vacant.ToString() && !chbTypeOfUser.Checked)
+            {  %>
+        <div class="row mb-2 justify-content-center">
+            <div class="col-sm-4">
+                <label>Email</label>
+                <asp:TextBox runat="server" ID="txtEmail" CssClass="form-control"></asp:TextBox>
+                <asp:RequiredFieldValidator ID="rfvTxtEmail" runat="server" ControlToValidate="txtEmail" Display="Dynamic" ForeColor="Red">* Can't be empty</asp:RequiredFieldValidator>
+                <asp:RegularExpressionValidator runat="server" ID="revTxtEmail" ControlToValidate="txtEmail" ForeColor="Red" Display="Dynamic" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*">* Invalid email</asp:RegularExpressionValidator>
+            </div>
+            <div class="col-sm-4">
+                <label>Address</label>
+                <asp:TextBox runat="server" ID="txtAddress" CssClass="form-control"></asp:TextBox>
+                <asp:RequiredFieldValidator ID="rfvTxtAddress" runat="server" ControlToValidate="txtAddress" Display="Dynamic" ForeColor="Red">* Can't be empty</asp:RequiredFieldValidator>
+            </div>
+        </div>
+
+        <% } %>
+        <% } %>
+
         <%--Fourth row--%>
         <div class="row mb-2 justify-content-center">
             <div class="col-sm-3">
@@ -114,10 +181,10 @@
                             <asp:TemplateField>
                                 <ItemTemplate>
                                     <div class="mb-3">
-                                        <asp:Image ID="imgApartment" ImageUrl='<%#Eval(nameof(RwaUtilities.Models.ApartmentImage.Path))%>' runat="server" Height="150" Width="250" CssClass="mx-auto d-block" />
+                                        <asp:Image ID="imgApartment" ImageUrl="<%#Eval(nameof(RwaUtilities.Models.ApartmentImage.Path))%>" runat="server" Height="150" Width="250" CssClass="mx-auto d-block" />
                                     </div>
                                     <div class="mb-3" style="display: flex; flex-direction: row; align-items: center; justify-content: space-between">
-                                        <asp:TextBox ID="txtName" runat="server" CssClass="form-control"></asp:TextBox>
+                                        <asp:TextBox ID="txtName" runat="server" CssClass="form-control" Text="<%#Eval(nameof(RwaUtilities.Models.ApartmentImage.Name))%>"></asp:TextBox>
                                         <asp:RequiredFieldValidator ID="rfvTxtName" runat="server" ControlToValidate="txtName" Display="Dynamic" ForeColor="Red">*</asp:RequiredFieldValidator>
                                     </div>
                                     <div class="mb-3" style="display: flex; flex-direction: row; align-items: center; justify-content: space-between">
@@ -138,7 +205,7 @@
         <%--Fifth row--%>
         <div class="row justify-content-center">
             <div class="col-sm-8 my-5">
-                <asp:Button runat="server" ID="btnAdd" Text="Add apartment" CssClass="btn btn-success" OnClick="btnAdd_Click" />
+                <asp:Button runat="server" ID="btnUpdate" Text="Update apartment" CssClass="btn btn-success" OnClick="btnUpdate_Click" />
             </div>
         </div>
     </div>

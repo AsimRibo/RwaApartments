@@ -51,7 +51,7 @@ namespace AdministrationPart
         {
             int apartmentId = int.Parse(((LinkButton)sender).CommandArgument);
 
-            Response.Redirect($"ApartmentUpdate.aspx?id={apartmentId}");
+            Response.Redirect($"ApartmentEdit.aspx?id={apartmentId}");
         }
 
         protected void btnAddApartment_Click(object sender, EventArgs e)

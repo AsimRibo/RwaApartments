@@ -24,7 +24,7 @@ namespace AdministrationPart
 
             if (Session["user"] != null)
             {
-                Response.Redirect("Users.aspx");
+                Response.Redirect("Apartments.aspx");
             }
         }
 
@@ -37,7 +37,7 @@ namespace AdministrationPart
                 if(user != null && ((IRepository)Application["database"]).GetUserRoles(user.Id).ToList().Contains(Admin))
                 {
                     Session["user"] = user;
-                    Response.Redirect("Users.aspx");
+                    Response.Redirect("Apartments.aspx");
                 }
                 else
                 {

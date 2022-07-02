@@ -111,7 +111,6 @@
                 <label for="blTags">Tags</label>
                 <asp:BulletedList runat="server" ID="blTags" CssClass="border h-50 overflow-auto bg-light"></asp:BulletedList>
             </div>
-
         </div>
     </div>
 </asp:Content>
