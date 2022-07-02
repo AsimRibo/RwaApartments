@@ -121,7 +121,7 @@
                                         <asp:RequiredFieldValidator ID="rfvTxtName" runat="server" ControlToValidate="txtName" Display="Dynamic" ForeColor="Red">*</asp:RequiredFieldValidator>
                                     </div>
                                     <div class="mb-3" style="display: flex; flex-direction: row; align-items: center; justify-content: space-between">
-                                        <asp:LinkButton ID="btnDeleteImage" CssClass="btn btn-danger" runat="server" CommandArgument="<%#Eval(nameof(RwaUtilities.Models.ApartmentImage.Guid)) %>" OnClick="btnDeleteImage_Click" Text="Delete"></asp:LinkButton>
+                                        <asp:LinkButton ID="btnDeleteImage" CssClass="btn btn-danger" runat="server" CommandArgument="<%#Eval(nameof(RwaUtilities.Models.ApartmentImage.Guid)) %>" OnClick="btnDeleteImage_Click" Text="Delete" OnClientClick="return confirm('Are you sure you want to delete this image?');" CausesValidation="false"></asp:LinkButton>
                                         <asp:Label runat="server" ID="lblGuid" Visible="false" Text="<%#Eval(nameof(RwaUtilities.Models.ApartmentImage.Guid)) %>"></asp:Label>
                                         <div style="display: flex; flex-direction: row; align-items: center; gap: .5em">
                                             <asp:LinkButton runat="server" ID="btnSetRepresentative" CssClass="btn btn-secondary" Text="Set representative" CommandArgument="<%#Eval(nameof(RwaUtilities.Models.ApartmentImage.Guid)) %>" OnClick="btnSetRepresentative_Click"></asp:LinkButton>

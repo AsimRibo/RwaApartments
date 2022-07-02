@@ -49,5 +49,17 @@ namespace RwaUtilities.DAL
         void AddTagForApartment(int tag, int apartmentId);
 
         void AddApartmentImage(ApartmentImage image, int apartmentId);
+
+        void DeleteTagForApartment(int idTag, int idApartment);
+
+        void DeleteApartmentImage(int idImage);
+
+        void UpdateApartmentImage(int idPicture, string name, bool isRepresentative);
+
+        void UpdateApartment(Apartment apartment, int cityId, int ownerId);
+
+        void AddReservationById(ApartmentReservation reservation, int userId);
+
+        void AddReservation(ApartmentReservation reservation);
     }
 }

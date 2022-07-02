@@ -27,6 +27,16 @@ namespace RwaUtilities.DAL
             SqlHelper.ExecuteNonQuery(Cs, nameof(AddApartmentImage), image.Guid, image.CreatedAt, apartmentId, image.Path, image.Name, image.IsRepresentative);
         }
 
+        public void AddReservation(ApartmentReservation reservation)
+        {
+            SqlHelper.ExecuteNonQuery(Cs, nameof(AddReservation), reservation.ApartmentId, reservation.Details, reservation.Username, reservation.UserEmail, reservation.UserAddress, reservation.UserPhone);
+        }
+
+        public void AddReservationById(ApartmentReservation reservation, int userId)
+        {
+            SqlHelper.ExecuteNonQuery(Cs, nameof(AddReservationById), userId, reservation.ApartmentId, reservation.Details);
+        }
+
         public int AddTag(Tag tag)
         {
             var id = SqlHelper.ExecuteScalar(Cs, nameof(AddTag), tag.Name, tag.NameEng, tag.CreatedAt, tag.TagType.Id);
@@ -64,9 +74,19 @@ namespace RwaUtilities.DAL
             SqlHelper.ExecuteNonQuery(Cs, nameof(DeleteApartment), id);
         }
 
+        public void DeleteApartmentImage(int idImage)
+        {
+            SqlHelper.ExecuteNonQuery(Cs, nameof(DeleteApartmentImage), idImage);
+        }
+
         public void DeleteTag(int id)
         {
             SqlHelper.ExecuteNonQuery(Cs, nameof(DeleteTag), id);
+        }
+
+        public void DeleteTagForApartment(int idTag, int idApartment)
+        {
+            SqlHelper.ExecuteNonQuery(Cs, nameof(DeleteTagForApartment), idTag, idApartment);
         }
 
         public IList<Apartment> GetAllApartments()
@@ -350,6 +370,16 @@ namespace RwaUtilities.DAL
             }
 
             return roles;
+        }
+
+        public void UpdateApartment(Apartment apartment, int cityId, int ownerId)
+        {
+            SqlHelper.ExecuteNonQuery(Cs, nameof(UpdateApartment), apartment.Id, ownerId, cityId, apartment.Name, apartment.NameEng, apartment.Price, apartment.MaxAdults, apartment.MaxChildren, apartment.TotalRooms, apartment.BeachDistance);
+        }
+
+        public void UpdateApartmentImage(int idPicture, string name, bool isRepresentative)
+        {
+            SqlHelper.ExecuteNonQuery(Cs, nameof(UpdateApartmentImage), idPicture, name, isRepresentative);
         }
     }
 }

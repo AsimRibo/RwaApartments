@@ -28,7 +28,7 @@ namespace AdministrationPart
             }
 
             tags = ((IRepository)Application["database"]).GetAllTags();
-            PrepareApartment();
+            apartment = ((IRepository)Application["database"]).GetApartment(int.Parse(Request.QueryString["id"]));
 
             if (!IsPostBack)
             {
@@ -37,11 +37,13 @@ namespace AdministrationPart
                 PrepareImages();
                 LoadGridView();
                 SetCorrectValuesToDropDownLists();
+                ShowApartment(apartment);
             }
 
 
             if (IsPostBack)
             {
+                panelMessage.Visible = false;
                 if (ViewState["imgList"] != null)
                 {
                     images = (IList<ApartmentImage>)ViewState["imgList"];
@@ -57,13 +59,6 @@ namespace AdministrationPart
         {
             ddlCity.SelectedValue = apartment.City.IdCity.ToString();
             ddlOwners.SelectedValue = apartment.Owner.OwnerId.ToString();
-        }
-
-        private void PrepareApartment()
-        {
-            apartment = ((IRepository)Application["database"]).GetApartment(int.Parse(Request.QueryString["id"]));
-
-            ShowApartment(apartment);
         }
 
         private void ShowApartment(Apartment apartment)
@@ -165,8 +160,9 @@ namespace AdministrationPart
             else
             {
                 imageToRemove.DoDelete = true;
+                
             }
-            
+            LoadGridView();
         }
 
         protected void btnSetRepresentative_Click(object sender, EventArgs e)
@@ -186,14 +182,145 @@ namespace AdministrationPart
         =>
             images.ToList().ForEach(image => image.IsRepresentative = false);
 
+
         protected void btnUpdate_Click(object sender, EventArgs e)
         {
+            if (chbListTags.Items.Cast<ListItem>().Any(i => i.Selected))
+            {
+                HandleTagsChange();
 
+                CollectImagesData();
+
+                HandleImagesChange();
+
+                UpdateApartment();
+
+                HandleReservation();
+
+                Response.Redirect("Apartments.aspx");
+            }
+            else
+            {
+                panelMessage.Visible = true;
+            }
+        }
+
+        private void HandleReservation()
+        {
+            if (ddlStatus.SelectedItem.ToString() != ApartmentStatus.Vacant.ToString())
+            {
+                ApartmentReservation reservation = new ApartmentReservation();
+
+                reservation.Details = txtDetails.Text.Trim();
+                reservation.ApartmentId = apartment.Id;
+
+                if (chbTypeOfUser.Checked)
+                {
+                    ((IRepository)Application["database"]).AddReservationById(reservation, int.Parse(ddlUsers.SelectedValue));
+                }
+                else
+                {
+                    reservation.UserPhone = txtPhone.Text.Trim();
+                    reservation.Username = txtUsername.Text.Trim();
+                    reservation.UserEmail = txtEmail.Text.Trim();
+                    reservation.UserAddress = txtAddress.Text.Trim();
+
+                    ((IRepository)Application["database"]).AddReservation(reservation);
+                }
+            }
+        }
+
+        private void UpdateApartment()
+        {
+            apartment.Name = txtName.Text.Trim();
+            apartment.NameEng = txtNameEng.Text.Trim();
+            apartment.TotalRooms = int.Parse(txtTotalRooms.Text.Trim());
+            apartment.BeachDistance = int.Parse(txtBeachDistance.Text.Trim());
+            apartment.MaxAdults = int.Parse(txtMaxAdults.Text.Trim());
+            apartment.MaxChildren = int.Parse(txtMaxChildren.Text.Trim());
+            apartment.Price = Decimal.Parse(txtPrice.Text.Trim());
+
+            ((IRepository)Application["database"]).UpdateApartment(apartment, int.Parse(ddlCity.SelectedValue), int.Parse(ddlOwners.SelectedValue));
+            
+        }
+
+        private void CollectImagesData()
+        {
+            foreach (GridViewRow row in gvImages.Rows)
+            {
+                ApartmentImage image = images.FirstOrDefault(x => x.Guid.ToString() == (row.FindControl("lblGuid") as Label).Text);
+                image.Name = (row.FindControl("txtName") as TextBox).Text;
+            }
+            SetDefaultRepresentativePicture();
+        }
+
+        private void SetDefaultRepresentativePicture()
+        {
+            ApartmentImage image = images.FirstOrDefault(i => i.IsRepresentative && !i.DoDelete);
+            if (image is null)
+            {
+                images.ElementAt(0).IsRepresentative = true;
+            }
+        }
+
+        private void HandleImagesChange()
+        {
+            images.ToList().ForEach(i =>
+            {
+                if (i.DoDelete)
+                {
+                    ((IRepository)Application["database"]).DeleteApartmentImage(i.Id);
+                }
+                else if(i.Id == 0)
+                {
+                    ((IRepository)Application["database"]).AddApartmentImage(i, apartment.Id);
+                }
+                else
+                {
+                    ((IRepository)Application["database"]).UpdateApartmentImage(i.Id, i.Name, i.IsRepresentative);
+                }
+            });
+        }
+
+        private void HandleTagsChange()
+        {
+            foreach (ListItem item in this.chbListTags.Items)
+            {
+                if (item.Selected)
+                    selectedTags.Add(new Tag { Id = int.Parse(item.Value) });
+            }
+            IList<Tag> originalTags = ((IRepository)Application["database"]).GetApartmentTags(apartment.Id);
+
+            DeleteTagsFromDb(originalTags);
+
+            AddNewTagsToDb(originalTags);
+        }
+
+        private void AddNewTagsToDb(IList<Tag> originalTags)
+        {
+            foreach (Tag tag in selectedTags)
+            {
+                if (!originalTags.Contains(tag))
+                {
+                    ((IRepository)Application["database"]).AddTagForApartment(tag.Id, apartment.Id);
+                }
+            }
+        }
+
+        private void DeleteTagsFromDb(IList<Tag> originalTags)
+        {
+            foreach (Tag tag in originalTags)
+            {
+                if (!selectedTags.Contains(tag))
+                {
+                    ((IRepository)Application["database"]).DeleteTagForApartment(tag.Id, apartment.Id);
+                }
+            }
         }
 
         private void LoadGridView()
         {
-            gvImages.DataSource = images;
+            gvImages.DataSource = images.Where(i => !i.DoDelete);
             gvImages.DataBind();
         }
     }

@@ -89,7 +89,8 @@ namespace AdministrationPart
                 AddPicturesToDB(apartmentId);
                 Response.Redirect("Apartments.aspx");
             }
-            else{
+            else
+            {
                 panelMessage.Visible = true;
             }
         }

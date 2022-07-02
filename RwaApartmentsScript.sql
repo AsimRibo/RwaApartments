@@ -109,6 +109,7 @@ CREATE PROCEDURE DeleteApartment
 AS
 UPDATE Apartment
 SET DeletedAt = GETDATE()
+WHERE Id = @Id
 GO
 
 --Get all tag types
@@ -237,6 +238,85 @@ CREATE PROCEDURE AddApartmentImage
 AS
 INSERT INTO ApartmentPicture(Guid, CreatedAt, ApartmentId, Path, Name, IsRepresentative)
 VALUES(@Guid, @CreatedAt, @ApartmentId, @Path, @Name, @IsRepresentative)
+GO
+
+--Soft delete picture
+CREATE PROCEDURE DeleteApartmentImage
+	@Id int
+AS
+UPDATE ApartmentPicture
+SET DeletedAt = GETDATE()
+	, IsRepresentative = 0
+WHERE Id = @Id
+GO
+
+--Update apartment picture
+CREATE PROCEDURE UpdateApartmentImage
+	@IdPicture int,
+	@Name nvarchar(250),
+	@IsRepresentative bit
+AS
+UPDATE ApartmentPicture
+SET Name = @Name
+	, IsRepresentative = @IsRepresentative
+WHERE ApartmentPicture.Id = @IdPicture
+GO
+
+--Delete tag from TaggedApartment table
+CREATE PROCEDURE DeleteTagForApartment
+	@IdTag int,
+	@IdApartment int
+AS
+DELETE FROM TaggedApartment
+WHERE TaggedApartment.TagId = @IdTag AND TaggedApartment.ApartmentId = @IdApartment
+GO
+
+--Add reservation by userId
+CREATE PROCEDURE AddReservationById
+	@IdUser int,
+	@IdApartment int,
+	@Details nvarchar(1000)
+AS
+INSERT INTO ApartmentReservation(Guid, CreatedAt, ApartmentId, Details, UserId)
+VALUES(NEWID(), GETDATE(), @IdApartment, @Details, @IdUser)
+GO
+
+CREATE PROCEDURE AddReservation
+	@IdApartment int,
+	@Details nvarchar(1000),
+	@UserName nvarchar(250),
+	@UserEmail nvarchar(250),
+	@UserAddress nvarchar(1000),
+	@UserPhone nchar(20)
+AS
+INSERT INTO ApartmentReservation(Guid, CreatedAt, ApartmentId, Details, UserName, UserEmail, UserAddress, UserPhone)
+VALUES(NEWID(), GETDATE(), @IdApartment, @Details, @UserName, @UserEmail, @UserAddress, @UserPhone)
+GO
+
+--Update apartment info
+CREATE PROCEDURE UpdateApartment
+	@IdApartment int,
+	@OwnerId int,
+	@CityId int,
+	@Name nvarchar(250),
+	@NameEng nvarchar(250),
+	@Price money,
+	@MaxAdults int,
+	@MaxChildren int,
+	@TotalRooms int,
+	@BeachDistance int
+AS
+UPDATE Apartment
+SET OwnerId = @OwnerId
+	, CityId = @CityId
+	, Name = @Name
+	, NameEng = @NameEng
+	, Price = @Price
+	, MaxAdults = @MaxAdults
+	, MaxChildren = @MaxChildren
+	, TotalRooms = @TotalRooms
+	, BeachDistance = @BeachDistance
+WHERE Apartment.Id = @IdApartment
 GO
 
 --Disabling some of the pictures

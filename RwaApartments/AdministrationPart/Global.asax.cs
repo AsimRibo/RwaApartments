@@ -21,5 +21,10 @@ namespace AdministrationPart
         {
             Application["database"] = repository;
         }
+
+        protected void Application_Error(object sender, EventArgs e)
+        {
+            Response.Redirect("ErrorPage.aspx");
+        }
     }
 }
