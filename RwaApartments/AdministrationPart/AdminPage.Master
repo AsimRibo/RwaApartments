@@ -58,6 +58,7 @@
     <%--BOOTSTRAP--%>
     <link href="Content/bootstrap.min.css" rel="stylesheet" />
 
+    
     <%--CUSTOM CSS--%>
     <link href="Content/customStyles.css" rel="stylesheet" />
 
@@ -94,6 +95,9 @@
                         { %>
                     <ul class='navbar-nav d-flex'>
                         <li class='nav-item'>
+                            <asp:Label runat="server" ID="lblName" CssClass="nav-link"></asp:Label>
+                        </li>
+                        <li class='nav-item'>
                             <asp:Button class='nav-link btn btn-danger text-white' ID="btnLogout" runat="server" Text="Logout" OnClick="btnLogout_Click" />
                         </li>
                     </ul>
@@ -120,5 +124,6 @@
 
     <!-- BOOTSTRAP -->
     <script src="Scripts/bootstrap.min.js"></script>
+    
 </body>
 </html>
