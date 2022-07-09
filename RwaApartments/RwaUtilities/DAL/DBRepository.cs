@@ -27,6 +27,11 @@ namespace RwaUtilities.DAL
             SqlHelper.ExecuteNonQuery(Cs, nameof(AddApartmentImage), image.Guid, image.CreatedAt, apartmentId, image.Path, image.Name, image.IsRepresentative);
         }
 
+        public void AddApartmentReview(ApartmentReview review)
+        {
+            SqlHelper.ExecuteNonQuery(Cs, nameof(AddApartmentReview), review.UserId, review.ApartmentId, review.Stars, review.Details);
+        }
+
         public void AddReservation(ApartmentReservation reservation)
         {
             SqlHelper.ExecuteNonQuery(Cs, nameof(AddReservation), reservation.ApartmentId, reservation.Details, reservation.Username, reservation.UserEmail, reservation.UserAddress, reservation.UserPhone);
@@ -245,6 +250,52 @@ namespace RwaUtilities.DAL
             return users;
         }
 
+        public IList<Apartment> GetAllVacantApartments()
+        {
+            IList<Apartment> apartments = new List<Apartment>();
+
+            DataTable apartmentsTable = SqlHelper.ExecuteDataset(Cs, nameof(GetAllVacantApartments)).Tables[0];
+
+            foreach (DataRow row in apartmentsTable.Rows)
+            {
+                ApartmentOwner owner = new ApartmentOwner
+                {
+                    OwnerId = (int)row[nameof(ApartmentOwner.OwnerId)],
+                    OwnerCreatedAt = DateTime.Parse(row[nameof(ApartmentOwner.OwnerCreatedAt)].ToString()),
+                    OwnerName = row[nameof(ApartmentOwner.OwnerName)].ToString(),
+                };
+
+                City city = new City
+                {
+                    IdCity = (int)row[nameof(City.IdCity)],
+                    NameCity = row[nameof(City.NameCity)].ToString()
+                };
+
+                apartments.Add(new Apartment
+                {
+                    Id = (int)row[nameof(Apartment.Id)],
+                    Name = row[nameof(Apartment.Name)].ToString(),
+                    NameEng = row[nameof(Apartment.NameEng)].ToString(),
+                    CreatedAt = DateTime.Parse(row[nameof(Apartment.CreatedAt)].ToString()),
+                    DeletedAt = null,
+                    Price = (decimal)row[nameof(Apartment.Price)],
+                    MaxAdults = (int)row[nameof(Apartment.MaxAdults)],
+                    MaxChildren = (int)row[nameof(Apartment.MaxChildren)],
+                    TotalRooms = (int)row[nameof(Apartment.TotalRooms)],
+                    BeachDistance = (int)row[nameof(Apartment.BeachDistance)],
+                    Owner = owner,
+                    City = city,
+                    Images = GetApartmentImages((int)row[nameof(Apartment.Id)]),
+                    Tags = GetApartmentTags((int)row[nameof(Apartment.Id)]),
+                    Status = (ApartmentStatus)Enum.Parse(typeof(ApartmentStatus), row[nameof(Apartment.Status)].ToString())
+                });
+
+
+            }
+
+            return apartments;
+        }
+
         public Apartment GetApartment(int id)
         {
             DataTable apartmentTable = SqlHelper.ExecuteDataset(Cs, nameof(GetApartment), id).Tables[0];
@@ -304,6 +355,31 @@ namespace RwaUtilities.DAL
             return images;
         }
 
+        public IList<ApartmentReview> GetApartmentReviews(int id)
+        {
+            IList<ApartmentReview> reviews = new List<ApartmentReview>();
+
+            DataTable reviewsTable = SqlHelper.ExecuteDataset(Cs, nameof(GetApartmentReviews), id).Tables[0];
+
+
+            foreach (DataRow row in reviewsTable.Rows)
+            {
+
+                reviews.Add(new ApartmentReview
+                {
+                    Id = (int)row[nameof(ApartmentReview.Id)],
+                    CreatedAt = DateTime.Parse(row[nameof(ApartmentReview.CreatedAt)].ToString()),
+                    ApartmentId = (int)row[nameof(ApartmentReview.ApartmentId)],
+                    Details = row[nameof(ApartmentReview.Details)].ToString(),
+                    Stars = (int)row[nameof(ApartmentReview.Stars)],
+                    UserId = (int)row[nameof(ApartmentReview.UserId)],
+                    UserName = (string)row[nameof(ApartmentReview.UserName)],
+                });
+            }
+
+            return reviews;
+        }
+
         public IList<Tag> GetApartmentTags(int id)
         {
             IList<Tag> tags = new List<Tag>();
@@ -324,6 +400,33 @@ namespace RwaUtilities.DAL
             }
 
             return tags;
+        }
+
+        public IList<Models.MVCUser.User> GetMvcUsers()
+        {
+            IList<Models.MVCUser.User> users = new List<Models.MVCUser.User>();
+
+            DataTable usersTable = SqlHelper.ExecuteDataset(Cs, nameof(GetMvcUsers)).Tables[0];
+
+            foreach (DataRow row in usersTable.Rows)
+            {
+                Models.MVCUser.User user = new Models.MVCUser.User
+                {
+                    Id = row[nameof(Models.MVCUser.User.Id)].ToString(),
+                    Email = row[nameof(Models.MVCUser.User.Email)].ToString(),
+                    UserName = row[nameof(Models.MVCUser.User.Email)].ToString(),
+                    Password = row[nameof(Models.MVCUser.User.Password)].ToString(),
+                    FullName = row[nameof(Models.MVCUser.User.UserName)].ToString(),
+                    PhoneNumber = row[nameof(Models.MVCUser.User.PhoneNumber)].ToString(),
+                    CreatedTime = DateTime.Parse(row[nameof(Models.MVCUser.User.CreatedTime)].ToString())
+                };
+
+                user.Roles = GetUserRoles(int.Parse(user.Id));
+
+                users.Add(user);
+            }
+
+            return users;
         }
 
         public string GetReservationUsername(int id)

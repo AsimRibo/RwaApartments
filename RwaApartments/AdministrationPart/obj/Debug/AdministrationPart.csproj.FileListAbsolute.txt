@@ -116,9 +116,11 @@ C:\Users\asim2\Desktop\RWA\RwaApartments\AdministrationPart\bin\roslyn\VBCSCompi
 C:\Users\asim2\Desktop\RWA\RwaApartments\AdministrationPart\bin\roslyn\VBCSCompiler.exe.config
 C:\Users\asim2\Desktop\RWA\RwaApartments\AdministrationPart\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
 C:\Users\asim2\Desktop\RWA\RwaApartments\AdministrationPart\bin\RwaUtilities.dll
+C:\Users\asim2\Desktop\RWA\RwaApartments\AdministrationPart\bin\Microsoft.AspNet.Identity.Core.dll
 C:\Users\asim2\Desktop\RWA\RwaApartments\AdministrationPart\bin\Microsoft.ApplicationBlocks.Data.dll
 C:\Users\asim2\Desktop\RWA\RwaApartments\AdministrationPart\bin\RwaUtilities.pdb
 C:\Users\asim2\Desktop\RWA\RwaApartments\AdministrationPart\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\asim2\Desktop\RWA\RwaApartments\AdministrationPart\bin\Microsoft.AspNet.Identity.Core.xml
 C:\Users\asim2\Desktop\RWA\RwaApartments\AdministrationPart\obj\Debug\AdministrationPart.csproj.AssemblyReference.cache
 C:\Users\asim2\Desktop\RWA\RwaApartments\AdministrationPart\obj\Debug\AdministrationPart.Resources.resources
 C:\Users\asim2\Desktop\RWA\RwaApartments\AdministrationPart\obj\Debug\AdministrationPart.csproj.GenerateResource.cache

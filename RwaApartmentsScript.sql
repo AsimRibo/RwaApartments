@@ -9,6 +9,22 @@ INSERT INTO AspNetUsers(Guid, CreatedAt, Email, EmailConfirmed, PasswordHash, Ph
 VALUES(NEWID(), GETDATE(), 'admin@gmail.com', 1, '887375DAEC62A9F02D32A63C9E14C7641A9A8A42E4FA8F6590EB928D9744B57BB5057A1D227E4D40EF911AC030590BBCE2BFDB78103FF0B79094CEE8425601F5', 0, 0, 0, 'Admin', 'Somewhere 12')
 GO
 
+--setting password for all users to be Admin 
+UPDATE AspNetUsers
+SET PasswordHash = '887375DAEC62A9F02D32A63C9E14C7641A9A8A42E4FA8F6590EB928D9744B57BB5057A1D227E4D40EF911AC030590BBCE2BFDB78103FF0B79094CEE8425601F5'
+WHERE Id != 249
+GO
+
+--setting basic role
+INSERT INTO AspNetRoles(Name) VALUES('Basic')
+GO
+
+INSERT INTO AspNetUserRoles(UserId, RoleId)
+SELECT u.Id, 2
+FROM AspNetUsers AS u
+WHERE u.Id = 249
+GO
+
 --connecting admin role to admin user
 INSERT INTO AspNetUserRoles(RoleId, UserId) VALUES(1, 249)
 GO
@@ -42,6 +58,13 @@ FROM AspNetUsers AS s
 LEFT JOIN AspNetUserRoles AS r
 	ON r.UserId = s.Id
 WHERE r.RoleId != 1 OR r.RoleId IS NULL
+GO
+
+CREATE PROCEDURE GetMvcUsers
+AS
+SELECT s.Id, s.Email, s.UserName, s.PhoneNumber, s.CreatedAt AS CreatedTime, s.PasswordHash AS Password
+FROM AspNetUsers AS s
+WHERE s.id != 249
 GO
 
 --Get user by ID
@@ -103,6 +126,20 @@ INNER JOIN ApartmentStatus AS d
 WHERE a.DeletedAt IS NULL
 GO
 
+CREATE PROCEDURE GetAllVacantApartments
+AS
+SELECT a.Id, a.Name, a.NameEng, a.CreatedAt, a.DeletedAt, a.Price, a.MaxAdults, a.MaxChildren, a.TotalRooms, a.BeachDistance, ao.Id AS OwnerId, ao.CreatedAt AS OwnerCreatedAt, ao.Name AS OwnerName
+	, c.Name AS NameCity, c.Id AS IdCity, d.NameEng AS Status
+FROM Apartment AS a
+INNER JOIN ApartmentOwner AS ao
+	ON a.OwnerId = ao.Id
+INNER JOIN City AS c
+	ON c.Id = a.CityId
+INNER JOIN ApartmentStatus AS d
+	ON d.Id = a.StatusId
+WHERE a.DeletedAt IS NULL AND d.Id = 3
+GO
+
 --Soft delete apartment
 CREATE PROCEDURE DeleteApartment
 	@Id int
@@ -145,6 +182,26 @@ INNER JOIN City AS c
 INNER JOIN ApartmentStatus AS d
 	ON d.Id = a.StatusId
 WHERE a.DeletedAt IS NULL AND a.Id = @Id
+GO
+
+CREATE PROCEDURE GetApartmentReviews
+	@Id int
+AS
+SELECT ar.Id, ar.CreatedAt, ar.ApartmentId, ar.UserId, u.UserName, ar.Details, ar.Stars
+FROM ApartmentReview AS ar
+INNER JOIN AspNetUsers AS u
+	ON u.Id = ar.UserId
+WHERE ar.ApartmentId = @Id
+GO
+
+CREATE PROCEDURE AddApartmentReview
+	@UserId int,
+	@ApartmentId int,
+	@Stars int,
+	@Details nvarchar(1000)
+AS
+INSERT INTO ApartmentReview(Guid, CreatedAt, ApartmentId, UserId, Details, Stars)
+VALUES(NEWID(), GETDATE(), @ApartmentId, @UserId, @Details, @Stars)
 GO
 
 --Get name of person who made reservation

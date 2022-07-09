@@ -1,0 +1,16 @@
+﻿@model IList<RwaUtilities.Models.Apartment>
+
+@if (Model.Count == 0)
+{
+    <div>
+        <label>No apartments found :(</label>
+    </div>
+}
+@if (Model.Count != 0)
+{
+    foreach (var apartment in Model)
+    {
+        @Html.Partial("_ApartmentCard", apartment)
+    }
+}
+

@@ -1,0 +1,34 @@
+﻿@model IList<RwaUtilities.Models.Apartment>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container bg-gradient-info mar" style="margin-bottom: 14vh;">
+    <div class="row row-cols-3" id="apartmentsPlaceholder">
+
+    </div>
+
+</div>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+    loadApartments();
+    });
+
+    function loadApartments() {
+        $.ajax(
+        {
+            url: "@Url.Action("GetFilteredApartments", "Apartments")",
+            success: function (partialView)
+            {
+                $("#apartmentsPlaceholder").html("");
+                $("#apartmentsPlaceholder").append(partialView);
+            }
+        });
+    }
+    </script>
+
+}

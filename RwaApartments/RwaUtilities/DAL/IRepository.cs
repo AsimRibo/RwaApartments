@@ -61,5 +61,13 @@ namespace RwaUtilities.DAL
         void AddReservationById(ApartmentReservation reservation, int userId);
 
         void AddReservation(ApartmentReservation reservation);
+
+        void AddApartmentReview(ApartmentReview review);
+
+        IList<Models.MVCUser.User> GetMvcUsers();
+
+        IList<Apartment> GetAllVacantApartments();
+
+        IList<ApartmentReview> GetApartmentReviews(int id);
     }
 }

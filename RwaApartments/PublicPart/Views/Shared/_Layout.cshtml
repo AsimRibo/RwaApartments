@@ -1,0 +1,76 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <style>
+        .scroll::-webkit-scrollbar {
+            display: none;
+        }
+
+        .customTextArea{
+            height: 18vh;
+            resize: none
+        }
+    </style>
+</head>
+<body>
+
+    <nav class='navbar fixed-top navbar-expand-lg navbar-light nav-color'>
+        <div class='container-fluid'>
+            <a class='navbar-brand' href='@Url.Action(actionName: "Index", controllerName: "Apartments")'>
+                <img src="~/Content/Resources/Logo.png" alt="RwaApartments" width="30" height="30" />
+            </a>
+            <button class='navbar-toggler' type='button' data-bs-toggle='collapse' data-bs-target='#navbarSupportedContent' aria-controls='navbarSupportedContent' aria-expanded='false' aria-label='Toggle navigation'>
+                <span class='navbar-toggler-icon'></span>
+            </button>
+            <div class='collapse navbar-collapse' id='navbarSupportedContent'>
+                <ul class='navbar-nav me-auto mb-2 mb-lg-0'>
+                    <li class='nav-item'>
+                        @Html.ActionLink("Apartments", "Index", "Apartments", null, new { @class = "nav-link" })
+                    </li>
+                    </ul>
+                @if (HttpContext.Current.User.Identity.Name != string.Empty)
+                {
+                    <ul class='navbar-nav d-flex'>
+
+                        <li class='nav-item'>
+                            @Html.Label(@HttpContext.Current.User.Identity.Name, new { @class = "nav-link" })
+                        </li>
+                        <li class='nav-item'>
+                            @Html.ActionLink("Logout", "Logout", "Users", null, new { @class = "btn btn-danger" })
+                        </li>
+                    </ul>
+                }
+
+                @if (HttpContext.Current.User.Identity.Name == string.Empty)
+                {
+                    <ul class='navbar-nav d-flex'>
+                        <li class='nav-item'>
+                            @Html.ActionLink("Sign in", "Index", "Users", null, new { @class = "nav-link" })
+                        </li>
+                    </ul>
+                }
+            </div>
+        </div>
+    </nav>
+
+    <div>
+        @RenderBody()
+    </div>
+
+    <footer class="footer">
+        <div class="container py-1">
+            <p class="text-center">&copy Asim Ribo 2022 </p>
+            <p class="text-center">Algebra University College</p>
+        </div>
+    </footer>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
