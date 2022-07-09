@@ -166,6 +166,9 @@
     <Content Include="Scripts\jquery-3.6.0.min.js" />
     <Content Include="Scripts\jquery-3.6.0.slim.js" />
     <Content Include="Scripts\jquery-3.6.0.slim.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -185,6 +188,7 @@
     <Compile Include="Models\CustomAttributes\IsAuthorized.cs" />
     <Compile Include="Models\ViewModels\DetailsViewModel.cs" />
     <Compile Include="Models\ViewModels\LoginViewModel.cs" />
+    <Compile Include="Models\ViewModels\RegistrationViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -220,6 +224,7 @@
     <Content Include="Views\Shared\_ApartmentCard.cshtml" />
     <Content Include="Views\Shared\_ApartmentsList.cshtml" />
     <Content Include="Views\Apartments\Details.cshtml" />
+    <Content Include="Views\Users\Register.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

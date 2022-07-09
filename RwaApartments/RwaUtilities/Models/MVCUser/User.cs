@@ -18,6 +18,7 @@ namespace RwaUtilities.Models.MVCUser
 
         public virtual string Email { get; set; }
         public string PhoneNumber { get; set; }
+        public string Address { get; set; }
         public IList<string> Roles { get; set; }
         public virtual string Password { get; set; }
         public DateTime CreatedTime { get; set; }

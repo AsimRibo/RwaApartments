@@ -156,6 +156,17 @@ SELECT Id, Name, NameEng
 FROM TagType
 GO
 
+CREATE PROCEDURE AddNewUser
+	@Username nvarchar(256),
+	@Email nvarchar(256),
+	@Address nvarchar(1000),
+	@Phone nvarchar(max),
+	@Password nvarchar(max)
+AS
+INSERT INTO AspNetUsers(Guid, CreatedAt, Email, EmailConfirmed, PasswordHash, PhoneNumber, PhoneNumberConfirmed, LockoutEnabled, AccessFailedCount, UserName, Address)
+VALUES(NEWID(), GETDATE(), @Email, 1, @Password, @Phone, 1, 0, 0, @Username, @Address)
+GO
+
 --Add new tag
 CREATE PROCEDURE AddTag
 	@Name nvarchar(250),

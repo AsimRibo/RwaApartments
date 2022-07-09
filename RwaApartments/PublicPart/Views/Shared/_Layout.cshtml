@@ -38,7 +38,7 @@
                     <ul class='navbar-nav d-flex'>
 
                         <li class='nav-item'>
-                            @Html.Label(@HttpContext.Current.User.Identity.Name, new { @class = "nav-link" })
+                            <label class="nav-link" style="overflow:visible">@HttpContext.Current.User.Identity.Name</label>
                         </li>
                         <li class='nav-item'>
                             @Html.ActionLink("Logout", "Logout", "Users", null, new { @class = "btn btn-danger" })
@@ -70,6 +70,7 @@
     </footer>
 
     @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 </body>

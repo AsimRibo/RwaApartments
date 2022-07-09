@@ -32,6 +32,11 @@ namespace RwaUtilities.DAL
             SqlHelper.ExecuteNonQuery(Cs, nameof(AddApartmentReview), review.UserId, review.ApartmentId, review.Stars, review.Details);
         }
 
+        public void AddNewUser(string name, string email, string address, string phone, string password)
+        {
+            SqlHelper.ExecuteNonQuery(Cs, nameof(AddNewUser), name, email, address, phone, password);
+        }
+
         public void AddReservation(ApartmentReservation reservation)
         {
             SqlHelper.ExecuteNonQuery(Cs, nameof(AddReservation), reservation.ApartmentId, reservation.Details, reservation.Username, reservation.UserEmail, reservation.UserAddress, reservation.UserPhone);

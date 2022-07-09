@@ -3,6 +3,8 @@ using Microsoft.AspNet.Identity.Owin;
 using PublicPart.Models.Auth;
 using PublicPart.Models.CustomAttributes;
 using PublicPart.Models.ViewModels;
+using RwaUtilities.Crypto;
+using RwaUtilities.DAL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -69,7 +71,7 @@ namespace PublicPart.Controllers
             }
             else
             {
-                ModelState.AddModelError("", "Korisnik ne postoji u bazi");
+                ModelState.AddModelError("", "No such user");
                 return View(model);
             }
 
@@ -80,6 +82,27 @@ namespace PublicPart.Controllers
         {
             HttpContext.GetOwinContext().Authentication.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
             return RedirectToAction(actionName: "Index", controllerName: "Apartments");
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public ActionResult Register()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public ActionResult Register(RegistrationViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+                RepositoryFactory.GetRepository().AddNewUser(model.Name, model.Email, model.Address, model.PhoneNumber, Cryptography.HashPassword(model.Password));
+                return View("Index");
         }
     }
 }

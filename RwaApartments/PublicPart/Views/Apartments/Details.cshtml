@@ -110,8 +110,8 @@
     </div>
 
 
-    <!--<div class="">-->
-    @using (Html.BeginForm(controllerName: "Apartments", actionName: "", method: FormMethod.Post))
+    <div class="">
+    @using (Html.BeginForm(controllerName: "Apartments", actionName: "", method: FormMethod.Post, htmlAttributes: new { id = "formContact", role = "form"}))
     {
         @Html.AntiForgeryToken()
         <div class="row justify-content-center">
@@ -125,7 +125,7 @@
                 @Html.LabelFor(model => model.Name, new { @class = "control-label" })
                 <div class="">
                     @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Name)
+                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
                 </div>
             </div>
 
@@ -133,7 +133,7 @@
                 @Html.LabelFor(model => model.Email, new { @class = "control-label" })
                 <div class="">
                     @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Email)
+                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
                 </div>
             </div>
 
@@ -144,7 +144,7 @@
                 @Html.LabelFor(model => model.PhoneNumber, new { @class = "control-label" })
                 <div class="">
                     @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.PhoneNumber)
+                    @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
                 </div>
             </div>
 
@@ -153,7 +153,7 @@
                 @Html.LabelFor(model => model.Adults, new { @class = "control-label" })
                 <div class="">
                     @Html.EditorFor(model => model.Adults, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Adults)
+                    @Html.ValidationMessageFor(model => model.Adults, "", new { @class = "text-danger" })
                 </div>
             </div>
 
@@ -161,7 +161,7 @@
                 @Html.LabelFor(model => model.Children, new { @class = "control-label" })
                 <div class="">
                     @Html.EditorFor(model => model.Children, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Children)
+                    @Html.ValidationMessageFor(model => model.Children, "", new { @class = "text-danger" })
                 </div>
             </div>
 
@@ -171,17 +171,14 @@
             <div class="form-group col-sm-4">
                 @Html.LabelFor(model => model.StartDate, new { @class = "control-label" })
                 <div class="">
-                    @*@Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.StartDate)*@
-                    <input type="date"/>
+                    <input type="date" id="startDate" class="form-control" required/>
                 </div>
             </div>
 
             <div class="form-group col-sm-4">
                 @Html.LabelFor(model => model.EndDate, new { @class = "control-label" })
                 <div class="">
-                    @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.EndDate)
+                    <input type="date" id="endDate" class="form-control" />
                 </div>
             </div>
 
@@ -189,11 +186,11 @@
 
         <div class="row justify-content-center">
             <div class="col-sm-8">
-                <button type="submit" class="btn btn-success" id="btnContact">Send</button>
+                <input type="submit" value="Send" class="btn btn-primary"/>
             </div>
         </div>
     }
-    @*</div>*@
+    </div>
 
     @if (HttpContext.Current.User.Identity.IsAuthenticated)
     {
@@ -291,5 +288,15 @@
             });
         });
 
+
+        $("#formContact").on("submit", function (e) {
+            e.preventDefault();
+            const form = $(e.target);
+
+            if (form.valid()) {
+                const params = form.serialize();
+                console.log(params);
+            }
+        });
     </script>
 }
