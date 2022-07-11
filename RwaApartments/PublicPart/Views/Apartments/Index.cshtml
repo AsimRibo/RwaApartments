@@ -1,12 +1,54 @@
-﻿@model IList<RwaUtilities.Models.Apartment>
+﻿@model PublicPart.Models.ViewModels.FilteredApartmentsViewModel
 
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+    SelectList ddlCitites = new SelectList(
+        items: Model.Cities,
+        dataTextField: "NameCity",
+        dataValueField: "IdCity"
+    );
+
 }
 
 <div class="container bg-gradient-info mar" style="margin-bottom: 14vh;">
-    <div class="row row-cols-3" id="apartmentsPlaceholder">
+
+    <div class="row justify-content-center">
+
+        <div class="col-sm-2">
+            @Html.LabelFor(model => model.Rooms, new { @class = "control-label" })
+            @Html.EditorFor(model => model.Rooms, new { htmlAttributes = new { @class = "form-control", id = "rooms" } })
+        </div>
+
+        <div class="col-sm-2">
+            @Html.LabelFor(model => model.Adults, new { @class = "control-label" })
+            @Html.EditorFor(model => model.Adults, new { htmlAttributes = new { @class = "form-control", id = "adults" } })
+        </div>
+
+        <div class="col-sm-2">
+            @Html.LabelFor(model => model.Children, new { @class = "control-label" })
+            @Html.EditorFor(model => model.Children, new { htmlAttributes = new { @class = "form-control", id = "children" } })
+        </div>
+
+        <div class="col-sm-2">
+            <label>City</label>
+            @Html.DropDownList(
+           "Cities",
+           optionLabel: "-",
+           selectList: ddlCitites,
+           htmlAttributes: new { @class = "form-select", id = "ddlCities" })
+        </div>
+
+        <div class="col-sm-1 mt-auto">
+            <div>
+                <button class="btn btn-success" id="btnSearch">Search</button>
+            </div>
+            
+        </div>
+    </div>
+
+    <div class="row row-cols-3 mt-3" id="apartmentsPlaceholder">
 
     </div>
 
@@ -18,14 +60,24 @@
     loadApartments();
     });
 
-    function loadApartments() {
+        $("#btnSearch").on("click", function (e) {
+            e.preventDefault();
+            loadApartments();
+        });
+
+        function loadApartments() {
+            let rooms = $("#rooms").val();
+            let adults = $("#adults").val();
+            let children = $("#children").val();
+            let city = $("#ddlCities").find(":selected").text();
         $.ajax(
         {
             url: "@Url.Action("GetFilteredApartments", "Apartments")",
-            success: function (partialView)
+                data: { rooms, adults, children, city },
+            success: function (apartments)
             {
                 $("#apartmentsPlaceholder").html("");
-                $("#apartmentsPlaceholder").append(partialView);
+                $("#apartmentsPlaceholder").append(apartments);
             }
         });
     }

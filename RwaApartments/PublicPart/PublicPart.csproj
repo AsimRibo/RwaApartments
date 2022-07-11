@@ -187,6 +187,7 @@
     <Compile Include="Models\Auth\UserStoreService.cs" />
     <Compile Include="Models\CustomAttributes\IsAuthorized.cs" />
     <Compile Include="Models\ViewModels\DetailsViewModel.cs" />
+    <Compile Include="Models\ViewModels\FilteredApartmentsViewModel.cs" />
     <Compile Include="Models\ViewModels\LoginViewModel.cs" />
     <Compile Include="Models\ViewModels\RegistrationViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

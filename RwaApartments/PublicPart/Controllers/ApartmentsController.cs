@@ -35,14 +35,28 @@ namespace PublicPart.Controllers
         public ActionResult Index()
         {
             IList<Apartment> apartments = RepositoryFactory.GetRepository().GetAllVacantApartments();
-            return View(apartments);
+            IList<City> cities = RepositoryFactory.GetRepository().GetAllCities();
+            FilteredApartmentsViewModel viewModel = new FilteredApartmentsViewModel
+            {
+                Apartments = apartments,
+                Cities = cities
+            };
+            return View(viewModel);
         }
 
         [AllowAnonymous]
         [HttpGet]
-        public ActionResult GetFilteredApartments()
+        public ActionResult GetFilteredApartments(int rooms, int adults, int children, string city)
         {
             IList<Apartment> apartments = RepositoryFactory.GetRepository().GetAllVacantApartments();
+            apartments = apartments.Where(a => a.TotalRooms >= rooms)
+                .Where(a => a.MaxAdults >= adults)
+                .Where(a => a.MaxChildren >= children)
+                .ToList();
+            if (city != "-")
+            {
+                apartments = apartments.Where(a => a.City.NameCity == city).ToList();
+            }
             return PartialView("_ApartmentsList", apartments);
         }
 
