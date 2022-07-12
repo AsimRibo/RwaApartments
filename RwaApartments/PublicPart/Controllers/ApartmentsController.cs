@@ -81,6 +81,20 @@ namespace PublicPart.Controllers
                 .ToList();
             Response.Cookies.Add(cookie);
 
+            var broj = (int)RepositoryFactory.GetRepository().GetApartmentReviews(apartments.ElementAt(0).Id).Average(a => a.Stars);
+            apartments.ToList().ForEach(a =>
+            {
+                var reviews = RepositoryFactory.GetRepository().GetApartmentReviews(a.Id);
+                if (reviews.Count == 0)
+                {
+                    a.AverageRating = 0;
+                }
+                else
+                {
+                    a.AverageRating = (int)reviews.Average(b => b.Stars);
+                }
+            });
+
             return PartialView("_ApartmentsList", apartments);
         }
 

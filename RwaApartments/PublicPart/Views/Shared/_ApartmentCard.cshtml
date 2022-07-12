@@ -1,16 +1,35 @@
 ﻿@model RwaUtilities.Models.Apartment
 
 <div class="card" style="background-color: lightgray">
-    <img src="@Url.Action("Picture", "Apartments", new { path = (Model.Images.FirstOrDefault(i => i.IsRepresentative)).Path })" alt="Image" class="card-img-top" style="height: 16rem; width: 100%;"/>
+    <img src="@Url.Action("Picture", "Apartments", new { path = (Model.Images.FirstOrDefault(i => i.IsRepresentative)).Path })" alt="Image" class="card-img-top" style="height: 16rem; width: 100%;" />
     <div class="card-body">
-        <div class="row justify-content-between">
-            <div class="col">
+
+        <div class="d-flex justify-content-between">
+            <div>
                 <h5 class="card-title">@Model.NameEng</h5>
             </div>
-            <div class="col">
-                <img src="~/Content/Resources/star-fill.svg" class="float-end mt-1" />
+            <div>
+                @if (Model.AverageRating != 0)
+                {
+                    for (int i = 0; i < Model.AverageRating; i++)
+                    {
+                        <img src="~/Content/Resources/star-fill.svg" class="" />
+                    }
+
+                    for (int i = 0; i < 5 - Model.AverageRating; i++)
+                    {
+                        <img src="~/Content/Resources/star-empty.svg" class="" />
+                    }
+                }
+                else
+                {
+                    <span>N/A</span>
+                    <img src="~/Content/Resources/star-fill.svg" class="mb-1" />
+                }
+
             </div>
         </div>
+
 
         <div class="d-flex justify-content-between">
             <div>

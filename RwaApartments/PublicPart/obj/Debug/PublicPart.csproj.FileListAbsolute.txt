@@ -62,6 +62,7 @@ C:\Users\asim2\Desktop\RWA\RwaApartments\PublicPart\bin\Microsoft.Owin.Security.
 C:\Users\asim2\Desktop\RWA\RwaApartments\PublicPart\bin\Microsoft.Web.Infrastructure.dll
 C:\Users\asim2\Desktop\RWA\RwaApartments\PublicPart\bin\Newtonsoft.Json.dll
 C:\Users\asim2\Desktop\RWA\RwaApartments\PublicPart\bin\Owin.dll
+C:\Users\asim2\Desktop\RWA\RwaApartments\PublicPart\bin\Recaptcha.Web.dll
 C:\Users\asim2\Desktop\RWA\RwaApartments\PublicPart\bin\RwaUtilities.dll
 C:\Users\asim2\Desktop\RWA\RwaApartments\PublicPart\bin\System.Web.Helpers.dll
 C:\Users\asim2\Desktop\RWA\RwaApartments\PublicPart\bin\System.Web.Mvc.dll
@@ -95,4 +96,3 @@ C:\Users\asim2\Desktop\RWA\RwaApartments\PublicPart\obj\Debug\PublicPart.csproj.
 C:\Users\asim2\Desktop\RWA\RwaApartments\PublicPart\obj\Debug\PublicPart.csproj.CopyComplete
 C:\Users\asim2\Desktop\RWA\RwaApartments\PublicPart\obj\Debug\PublicPart.dll
 C:\Users\asim2\Desktop\RWA\RwaApartments\PublicPart\obj\Debug\PublicPart.pdb
-C:\Users\asim2\Desktop\RWA\RwaApartments\PublicPart\bin\Recaptcha.Web.dll

@@ -38,6 +38,8 @@ namespace RwaUtilities.Models
         public int TotalRooms { get; set; }
 
         public int BeachDistance { get; set; }
+
+        public int AverageRating { get; set; }
     }
 
     public enum ApartmentStatus

@@ -11,10 +11,32 @@
             display: none;
         }
 
-        .customTextArea{
+        .customTextArea {
             height: 18vh;
             resize: none
         }
+
+        .pictureModalContainer {
+            z-index: 15;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            position: fixed;
+            display: none;
+        }
+
+        .imageActive {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+            .imageActive img {
+                width: 70%;
+                height: 70%;
+            }
     </style>
 </head>
 <body>
@@ -32,7 +54,7 @@
                     <li class='nav-item'>
                         @Html.ActionLink("Apartments", "Index", "Apartments", null, new { @class = "nav-link" })
                     </li>
-                    </ul>
+                </ul>
                 @if (HttpContext.Current.User.Identity.Name != string.Empty)
                 {
                     <ul class='navbar-nav d-flex'>
