@@ -34,13 +34,19 @@ namespace PublicPart.Controllers
         [AllowAnonymous]
         public ActionResult Index()
         {
-            IList<Apartment> apartments = RepositoryFactory.GetRepository().GetAllVacantApartments();
+            FilteredApartmentsViewModel viewModel = new FilteredApartmentsViewModel();
             IList<City> cities = RepositoryFactory.GetRepository().GetAllCities();
-            FilteredApartmentsViewModel viewModel = new FilteredApartmentsViewModel
+            HttpCookie cookie = Request.Cookies["filters"];
+
+            if (cookie != null)
             {
-                Apartments = apartments,
-                Cities = cities
-            };
+                viewModel.Adults = int.Parse(cookie.Values["adults"]);
+                viewModel.Children = int.Parse(cookie.Values["children"]);
+                viewModel.Rooms = int.Parse(cookie.Values["rooms"]);
+            }
+            
+            viewModel.Cities = cities;
+            
             return View(viewModel);
         }
 
@@ -57,6 +63,15 @@ namespace PublicPart.Controllers
             {
                 apartments = apartments.Where(a => a.City.NameCity == city).ToList();
             }
+
+            HttpCookie cookie = new HttpCookie("filters");
+            cookie["adults"] = adults.ToString();
+            cookie["children"] = children.ToString();
+            cookie["rooms"] = rooms.ToString();
+            cookie.Expires = DateTime.Now.AddDays(10);
+
+            Response.Cookies.Add(cookie);
+
             return PartialView("_ApartmentsList", apartments);
         }
 

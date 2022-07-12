@@ -3,12 +3,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Script.Serialization;
 
 namespace PublicPart.Models.ViewModels
 {
     public class FilteredApartmentsViewModel
     {
-        public IList<Apartment> Apartments { get; set; }
 
         public int Rooms { get; set; }
 
