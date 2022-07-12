@@ -99,6 +99,11 @@ namespace RwaUtilities.DAL
             SqlHelper.ExecuteNonQuery(Cs, nameof(DeleteTagForApartment), idTag, idApartment);
         }
 
+        public void FreeApartmentFromReservation(int apartmentId)
+        {
+            SqlHelper.ExecuteNonQuery(Cs, nameof(FreeApartmentFromReservation), apartmentId);
+        }
+
         public IList<Apartment> GetAllApartments()
         {
             IList<Apartment> apartments = new List<Apartment>();

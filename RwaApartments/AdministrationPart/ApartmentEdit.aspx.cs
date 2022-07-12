@@ -228,6 +228,10 @@ namespace AdministrationPart
                     ((IRepository)Application["database"]).AddReservation(reservation);
                 }
             }
+            else
+            {
+                ((IRepository)Application["database"]).FreeApartmentFromReservation(apartment.Id);
+            }
         }
 
         private void UpdateApartment()

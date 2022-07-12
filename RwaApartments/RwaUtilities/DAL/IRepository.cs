@@ -71,5 +71,7 @@ namespace RwaUtilities.DAL
         IList<ApartmentReview> GetApartmentReviews(int id);
 
         void AddNewUser(string name, string email, string address, string phone, string password);
+
+        void FreeApartmentFromReservation(int apartmentId);
     }
 }
