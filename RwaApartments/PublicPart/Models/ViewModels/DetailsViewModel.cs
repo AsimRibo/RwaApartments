@@ -28,15 +28,15 @@ namespace PublicPart.Models.ViewModels
         public string PhoneNumber { get; set; }
 
         [Required(ErrorMessage = "Can't be empty")]
+        [DataType(DataType.Date)]
         [Display(Name = "Start date")]
-        //[DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime StartDate { get; set; }
 
         [Required(ErrorMessage = "Can't be empty")]
+        [DataType(DataType.Date)]
         [Display(Name = "End date")]
-        //[DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime EndDate { get; set; }
 
         [Required(ErrorMessage = "Must specify")]

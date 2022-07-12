@@ -1,4 +1,5 @@
 ﻿@model PublicPart.Models.ViewModels.DetailsViewModel
+@using Recaptcha.Web.Mvc
 
 @{
     ViewBag.Title = "Details";
@@ -109,11 +110,8 @@
         <div class="col-sm-8"><hr /></div>
     </div>
 
+    <form id="formContact">
 
-    <div class="">
-    @using (Html.BeginForm(controllerName: "Apartments", actionName: "", method: FormMethod.Post, htmlAttributes: new { id = "formContact", role = "form"}))
-    {
-        @Html.AntiForgeryToken()
         <div class="row justify-content-center">
             <div class="col-sm-8">
                 <h3>Contact us</h3>
@@ -121,77 +119,59 @@
         </div>
 
         <div class="row justify-content-center mb-2">
-            <div class="form-group col-sm-4">
-                @Html.LabelFor(model => model.Name, new { @class = "control-label" })
-                <div class="">
-                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-                </div>
+            <div class="col-sm-4">
+                <label class="form-label">Name</label>
+                <input type="text" class="form-control" id="inputName" value="@Model.Name" required />
             </div>
-
-            <div class="form-group col-sm-4">
-                @Html.LabelFor(model => model.Email, new { @class = "control-label" })
-                <div class="">
-                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
-                </div>
+            <div class="col-sm-4">
+                <label class="form-label">Email</label>
+                <input type="email" class="form-control" id="inputEmail" value="@Model.Email" required />
             </div>
-
         </div>
 
         <div class="row justify-content-center mb-2">
-            <div class="form-group col-sm-4">
-                @Html.LabelFor(model => model.PhoneNumber, new { @class = "control-label" })
-                <div class="">
-                    @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
-                </div>
+            <div class="col-sm-4">
+                <label class="form-label">Phone</label>
+                <input type="tel" class="form-control" id="inputPhone" value="@Model.PhoneNumber" required />
             </div>
-
-
-            <div class="form-group col-sm-2">
-                @Html.LabelFor(model => model.Adults, new { @class = "control-label" })
-                <div class="">
-                    @Html.EditorFor(model => model.Adults, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Adults, "", new { @class = "text-danger" })
-                </div>
+            <div class="col-sm-2">
+                <label class="form-label">Adults</label>
+                <input type="number" class="form-control" id="inputAdults" min="1" value="@Model.Adults" required />
             </div>
-
-            <div class="form-group col-sm-2">
-                @Html.LabelFor(model => model.Children, new { @class = "control-label" })
-                <div class="">
-                    @Html.EditorFor(model => model.Children, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Children, "", new { @class = "text-danger" })
-                </div>
+            <div class="col-sm-2">
+                <label class="form-label">Children</label>
+                <input type="number" class="form-control" id="inputChildren" min="0" value="@Model.Children" required />
             </div>
-
         </div>
 
         <div class="row justify-content-center mb-2">
-            <div class="form-group col-sm-4">
-                @Html.LabelFor(model => model.StartDate, new { @class = "control-label" })
-                <div class="">
-                    <input type="date" id="startDate" class="form-control" required/>
-                </div>
+            <div class="col-sm-4">
+                <label class="form-label">Start date</label>
+                <input type="date" class="form-control" value="@Model.StartDate" id="inputStartDate" required />
             </div>
-
-            <div class="form-group col-sm-4">
-                @Html.LabelFor(model => model.EndDate, new { @class = "control-label" })
-                <div class="">
-                    <input type="date" id="endDate" class="form-control" />
-                </div>
+            <div class="col-sm-4">
+                <label class="form-label">End date</label>
+                <input type="date" class="form-control" value="@Model.EndDate" id="inputEndDate" required />
             </div>
-
         </div>
 
-        <div class="row justify-content-center">
+        @if (!HttpContext.Current.User.Identity.IsAuthenticated)
+        {
+            <div class="row justify-content-center mt-2">
+                <div class="col-sm-8">
+                    @Html.RecaptchaWidget()
+                    <span id="errorMsg" class="text-danger"></span>
+                </div>
+            </div>
+        }
+
+        <div class="row justify-content-center mt-2">
             <div class="col-sm-8">
-                <input type="submit" value="Send" class="btn btn-primary"/>
+                <input type="submit" value="Send" id="btnSend" class="btn btn-primary" />
             </div>
         </div>
-    }
-    </div>
 
+    </form>
     @if (HttpContext.Current.User.Identity.IsAuthenticated)
     {
         <div class="row justify-content-center">
@@ -248,10 +228,10 @@
                             </div>
                             <p class="card-text overflow-scroll scroll">
                                 @review.Details
-                                @if (review.Details == string.Empty)
+                                @*@if (review.Details == string.Empty)
                                 {
                                     <span>No review yet...</span>
-                                }
+                                }*@
                             </p>
                         </div>
                     </div>
@@ -269,6 +249,30 @@
 
 @section scripts{
     <script>
+        $(document).ready(function () {
+            setDates();
+    });
+
+        $("#btnSend").on("click", function (e) {
+            $("#errorMsg").text("");
+                if (grecaptcha.getResponse().length == 0)
+                {
+                    $("#errorMsg").text("Don't forget CAPTCHA :)");
+                }
+        });
+
+        $("#formContact").on("submit", function (e) {
+            e.preventDefault();
+            alert("Contact information sent!");
+            console.log("Success");
+            $("#inputName").val("");
+            $("#inputEmail").val("");
+            $("#inputPhone").val("");
+            $("#inputAdults").val(1);
+            $("#inputChildren").val(0);
+            setDates();
+        });
+
 
         $("#btnAddReview").on("click", function (e) {
             e.preventDefault();
@@ -288,15 +292,16 @@
             });
         });
 
+        function setDates() {
+            var now = new Date();
 
-        $("#formContact").on("submit", function (e) {
-            e.preventDefault();
-            const form = $(e.target);
+            var day = ("0" + now.getDate()).slice(-2);
+            var month = ("0" + (now.getMonth() + 1)).slice(-2);
 
-            if (form.valid()) {
-                const params = form.serialize();
-                console.log(params);
-            }
-        });
+            var today = now.getFullYear() + "-" + (month) + "-" + (day);
+
+            $('#inputStartDate').val(today);
+            $('#inputEndDate').val(today);
+        }
     </script>
 }

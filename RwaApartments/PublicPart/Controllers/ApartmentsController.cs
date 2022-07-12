@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNet.Identity.Owin;
 using PublicPart.Models.Auth;
 using PublicPart.Models.ViewModels;
+using Recaptcha.Web.Mvc;
 using RwaUtilities.DAL;
 using RwaUtilities.Models;
 using System;
@@ -108,6 +109,8 @@ namespace PublicPart.Controllers
             }
             return View(detailsViewModel);
         }
+
+        
 
         [AllowAnonymous]
         [HttpGet]
