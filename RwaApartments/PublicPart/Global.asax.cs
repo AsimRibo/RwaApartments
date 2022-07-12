@@ -17,10 +17,5 @@ namespace PublicPart
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
         }
-
-        protected void Application_Error()
-        {
-            Response.Redirect("~/Error/Index");
-        }
     }
 }
