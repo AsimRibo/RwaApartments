@@ -110,7 +110,13 @@ namespace PublicPart.Controllers
             return View(detailsViewModel);
         }
 
-        
+        [AllowAnonymous]
+        [HttpGet]
+        public ActionResult GetReviews(int id)
+        {
+            IList<ApartmentReview> model = RepositoryFactory.GetRepository().GetApartmentReviews(id);
+            return PartialView("_ReviewList", model);
+        }
 
         [AllowAnonymous]
         [HttpGet]

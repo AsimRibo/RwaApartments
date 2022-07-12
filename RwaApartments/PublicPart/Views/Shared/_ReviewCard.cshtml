@@ -1,0 +1,17 @@
+﻿@model RwaUtilities.Models.ApartmentReview
+
+<div class="card" style="height: 23vh">
+    <div class="card-body">
+        <div class="d-flex justify-content-between">
+            <h5>@Model.UserName</h5>
+            <p>@Model.CreatedAt.ToShortDateString()</p>
+        </div>
+        <div class="card-title float-end">
+            <span>@Model.Stars</span>
+            <img src="~/Content/Resources/star-fill.svg" />
+        </div>
+        <p class="card-text overflow-scroll scroll">
+            @Model.Details
+        </p>
+    </div>
+</div>

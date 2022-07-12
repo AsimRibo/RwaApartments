@@ -213,8 +213,8 @@
     <div class="row justify-content-center">
         <div class="col-sm-8">
             <h3>Reviews</h3>
-            <div class="row row-cols-2">
-                @foreach (var review in Model.Reviews)
+            <div class="row row-cols-2" id="reviewsPlaceholder">
+                @*@foreach (var review in Model.Reviews)
                 {
                     <div class="card" style="height: 23vh">
                         <div class="card-body">
@@ -228,14 +228,10 @@
                             </div>
                             <p class="card-text overflow-scroll scroll">
                                 @review.Details
-                                @*@if (review.Details == string.Empty)
-                                {
-                                    <span>No review yet...</span>
-                                }*@
                             </p>
                         </div>
                     </div>
-                }
+                }*@
             </div>
         </div>
 
@@ -251,6 +247,7 @@
     <script>
         $(document).ready(function () {
             setDates();
+            loadReviews();
     });
 
         $("#btnSend").on("click", function (e) {
@@ -288,6 +285,7 @@
                     console.log("Success");
                     $("#txtDetails").val("");
                     $("#ddlStars").val(1);
+                    loadReviews()
                 }
             });
         });
@@ -303,5 +301,19 @@
             $('#inputStartDate').val(today);
             $('#inputEndDate').val(today);
         }
+
+        function loadReviews() {
+            var id = @Model.Apartment.Id;
+        $.ajax(
+        {
+                url: "@Url.Action("GetReviews", "Apartments")",
+                data: { id },
+            success: function (reviews)
+            {
+                $("#reviewsPlaceholder").html("");
+                $("#reviewsPlaceholder").append(reviews);
+            }
+        });
+    }
     </script>
 }

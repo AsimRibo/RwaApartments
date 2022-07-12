@@ -230,6 +230,8 @@
     <Content Include="Views\Shared\_ApartmentsList.cshtml" />
     <Content Include="Views\Apartments\Details.cshtml" />
     <Content Include="Views\Users\Register.cshtml" />
+    <Content Include="Views\Shared\_ReviewList.cshtml" />
+    <Content Include="Views\Shared\_ReviewCard.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

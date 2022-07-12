@@ -1,0 +1,17 @@
+﻿@model IList<RwaUtilities.Models.ApartmentReview>
+
+@if (Model.Count == 0)
+{
+    <div class="row justify-content-center mt-2">
+        <div class="col-sm-8">
+            <label><b>No reviews yet :)</b></label>
+        </div>
+    </div>
+}
+@if (Model.Count != 0)
+{
+    foreach (var review in Model)
+    {
+        @Html.Partial("_ReviewCard", review)
+    }
+}
