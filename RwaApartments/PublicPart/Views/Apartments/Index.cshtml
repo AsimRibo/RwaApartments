@@ -57,6 +57,9 @@
 @section scripts{
     <script>
         $(document).ready(function () {
+            if (@Model.SelectedCity != 0) {
+                $("#ddlCities").val(@Model.SelectedCity).change();
+            }
     loadApartments();
     });
 

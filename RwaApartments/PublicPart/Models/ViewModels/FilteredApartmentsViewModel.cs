@@ -16,6 +16,8 @@ namespace PublicPart.Models.ViewModels
 
         public int Children { get; set; }
 
+        public int SelectedCity { get; set; } = 0;
+
         public IList<City> Cities { get; set; }
     }
 }

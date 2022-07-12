@@ -37,16 +37,16 @@ namespace PublicPart.Controllers
             FilteredApartmentsViewModel viewModel = new FilteredApartmentsViewModel();
             IList<City> cities = RepositoryFactory.GetRepository().GetAllCities();
             HttpCookie cookie = Request.Cookies["filters"];
-
             if (cookie != null)
             {
                 viewModel.Adults = int.Parse(cookie.Values["adults"]);
                 viewModel.Children = int.Parse(cookie.Values["children"]);
                 viewModel.Rooms = int.Parse(cookie.Values["rooms"]);
+                viewModel.SelectedCity = int.Parse(cookie.Values["cityId"]);
             }
-            
+
             viewModel.Cities = cities;
-            
+
             return View(viewModel);
         }
 
@@ -55,21 +55,29 @@ namespace PublicPart.Controllers
         public ActionResult GetFilteredApartments(int rooms, int adults, int children, string city)
         {
             IList<Apartment> apartments = RepositoryFactory.GetRepository().GetAllVacantApartments();
-            apartments = apartments.Where(a => a.TotalRooms >= rooms)
-                .Where(a => a.MaxAdults >= adults)
-                .Where(a => a.MaxChildren >= children)
-                .ToList();
-            if (city != "-")
-            {
-                apartments = apartments.Where(a => a.City.NameCity == city).ToList();
-            }
 
             HttpCookie cookie = new HttpCookie("filters");
             cookie["adults"] = adults.ToString();
             cookie["children"] = children.ToString();
             cookie["rooms"] = rooms.ToString();
+
             cookie.Expires = DateTime.Now.AddDays(10);
 
+            if (city != "-")
+            {
+
+                cookie["cityId"] = RepositoryFactory.GetRepository().GetAllCities().First(c => c.NameCity == city).IdCity.ToString();
+                apartments = apartments.Where(a => a.City.NameCity == city).ToList();
+            }
+            else
+            {
+                cookie["cityId"] = 0.ToString();
+            }
+
+            apartments = apartments.Where(a => a.TotalRooms >= rooms)
+                .Where(a => a.MaxAdults >= adults)
+                .Where(a => a.MaxChildren >= children)
+                .ToList();
             Response.Cookies.Add(cookie);
 
             return PartialView("_ApartmentsList", apartments);
