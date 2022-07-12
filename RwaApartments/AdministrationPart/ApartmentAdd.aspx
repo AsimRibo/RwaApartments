@@ -116,11 +116,11 @@
                                     <div class="mb-3">
                                         <asp:Image ID="imgApartment" ImageUrl='<%#Eval(nameof(RwaUtilities.Models.ApartmentImage.Path))%>' runat="server" Height="150" Width="250" CssClass="mx-auto d-block" />
                                     </div>
-                                    <div class="mb-3" style="display: flex; flex-direction: row; align-items: center; justify-content: space-between">
+                                    <div class="mb-3">
                                         <asp:TextBox ID="txtName" runat="server" CssClass="form-control"></asp:TextBox>
                                         <asp:RequiredFieldValidator ID="rfvTxtName" runat="server" ControlToValidate="txtName" Display="Dynamic" ForeColor="Red">*</asp:RequiredFieldValidator>
                                     </div>
-                                    <div class="mb-3" style="display: flex; flex-direction: row; align-items: center; justify-content: space-between">
+                                    <div class="mb-3 d-flex justify-content-between">
                                         <asp:LinkButton ID="btnDeleteImage" CssClass="btn btn-danger" runat="server" CommandArgument="<%#Eval(nameof(RwaUtilities.Models.ApartmentImage.Guid)) %>" OnClick="btnDeleteImage_Click" Text="Delete" OnClientClick="return confirm('Are you sure you want to delete this image?');" CausesValidation="false"></asp:LinkButton>
                                         <asp:Label runat="server" ID="lblGuid" Visible="false" Text="<%#Eval(nameof(RwaUtilities.Models.ApartmentImage.Guid)) %>"></asp:Label>
                                         <div style="display: flex; flex-direction: row; align-items: center; gap: .5em">
