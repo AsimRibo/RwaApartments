@@ -79,6 +79,12 @@ namespace RwaUtilities.DAL
             };
         }
 
+        public void ChangeApartmentStatus(int apartmentId, ApartmentStatus status)
+        {
+            var n = (int)status;
+            SqlHelper.ExecuteNonQuery(Cs, nameof(ChangeApartmentStatus), apartmentId, n);
+        }
+
         public void DeleteApartment(int id)
         {
             SqlHelper.ExecuteNonQuery(Cs, nameof(DeleteApartment), id);

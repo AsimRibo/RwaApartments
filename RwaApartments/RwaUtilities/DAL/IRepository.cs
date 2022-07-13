@@ -73,5 +73,7 @@ namespace RwaUtilities.DAL
         void AddNewUser(string name, string email, string address, string phone, string password);
 
         void FreeApartmentFromReservation(int apartmentId);
+
+        void ChangeApartmentStatus(int apartmentId, ApartmentStatus status);
     }
 }

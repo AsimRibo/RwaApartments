@@ -81,7 +81,7 @@ namespace PublicPart.Controllers
                 .ToList();
             Response.Cookies.Add(cookie);
 
-            var broj = (int)RepositoryFactory.GetRepository().GetApartmentReviews(apartments.ElementAt(0).Id).Average(a => a.Stars);
+            
             apartments.ToList().ForEach(a =>
             {
                 var reviews = RepositoryFactory.GetRepository().GetApartmentReviews(a.Id);

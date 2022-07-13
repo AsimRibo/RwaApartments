@@ -361,6 +361,23 @@ INSERT INTO ApartmentReservation(Guid, CreatedAt, ApartmentId, Details, UserName
 VALUES(NEWID(), GETDATE(), @IdApartment, @Details, @UserName, @UserEmail, @UserAddress, @UserPhone)
 GO
 
+CREATE PROCEDURE FreeApartmentFromReservation
+	@IdApartment int
+AS
+UPDATE Apartment
+SET StatusId = 3
+WHERE Apartment.Id = @IdApartment
+GO
+
+CREATE PROCEDURE ChangeApartmentStatus
+	@IdApartment int,
+	@IdStatus int
+AS
+UPDATE Apartment
+SET StatusId = @IdStatus
+WHERE Apartment.Id = @IdApartment
+GO
+
 --Update apartment info
 CREATE PROCEDURE UpdateApartment
 	@IdApartment int,

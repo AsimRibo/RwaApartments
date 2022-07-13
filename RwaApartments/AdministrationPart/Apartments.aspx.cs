@@ -24,7 +24,15 @@ namespace AdministrationPart
             if (!IsPostBack)
             {
                 LoadData();
+                LoadDdl();
             }
+        }
+
+        private void LoadDdl()
+        {
+            ddlCity.DataSource = ((IRepository)Application["database"]).GetAllCities();
+            ddlCity.DataBind();
+            ddlCity.Items.Add(new ListItem { Text = "-", Selected = true });
         }
 
         private void LoadData()
@@ -38,6 +46,7 @@ namespace AdministrationPart
             int id = int.Parse(((LinkButton)sender).CommandArgument);
             allApartments.Remove(allApartments.FirstOrDefault(a => a.Id == id));
             ((IRepository)Application["database"]).DeleteApartment(id);
+            LoadData();
         }
 
         protected void btnDetails_Click(object sender, EventArgs e)
@@ -57,6 +66,20 @@ namespace AdministrationPart
         protected void btnAddApartment_Click(object sender, EventArgs e)
         {
             Response.Redirect($"ApartmentAdd.aspx");
+        }
+
+        protected void ddlCity_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ddlCity.SelectedItem.Text != "-")
+            {
+                var sorted = allApartments.Where(a => a.City.NameCity == ddlCity.SelectedItem.Text).ToList();
+                rptApartments.DataSource = sorted;
+                rptApartments.DataBind();
+            }
+            else
+            {
+                LoadData();
+            }
         }
     }
 }

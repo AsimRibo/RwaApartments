@@ -226,7 +226,9 @@ namespace AdministrationPart
                     reservation.UserAddress = txtAddress.Text.Trim();
 
                     ((IRepository)Application["database"]).AddReservation(reservation);
+                    
                 }
+                ((IRepository)Application["database"]).ChangeApartmentStatus(apartment.Id, (ApartmentStatus)Enum.Parse(typeof(ApartmentStatus), ddlStatus.SelectedItem.ToString()));
             }
             else
             {

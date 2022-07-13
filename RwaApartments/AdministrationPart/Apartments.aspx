@@ -6,8 +6,16 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder" runat="server">
     <div class="container py-4">
 
+        <div class="row justify-content-start">
+            <div class="col-sm-2">
+                <label>City</label>
+                <asp:DropDownList class="form-select" runat="server" ID="ddlCity" AutoPostBack="true" OnSelectedIndexChanged="ddlCity_SelectedIndexChanged">
+                    </asp:DropDownList>
+            </div>
+        </div>
+
         <div>
-            <asp:Button ID="btnAddApartment" runat="server" CssClass="btn btn-success mb-2" Text="Add apartment" OnClick="btnAddApartment_Click" />
+            <asp:Button ID="btnAddApartment" runat="server" CssClass="btn btn-success my-2" Text="Add apartment" OnClick="btnAddApartment_Click" />
         </div>
 
         <div class="row">

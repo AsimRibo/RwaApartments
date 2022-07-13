@@ -44,9 +44,9 @@ namespace RwaUtilities.Models
 
     public enum ApartmentStatus
     {
-        Vacant,
-        Occupied,
-        Reserved
+        Vacant = 3,
+        Occupied = 1,
+        Reserved = 2
         
     }
 }
