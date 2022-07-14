@@ -109,7 +109,7 @@
 
             <div class="col-sm-5">
                 <div class="gridViewContainer border mt-2">
-                    <asp:GridView runat="server" ID="gvImages" AutoGenerateColumns="false" ShowHeader="false" ShowFooter="false" CssClass="table table-borderless" BorderStyle="None">
+                    <asp:GridView runat="server" ID="gvImages" AutoGenerateColumns="false" CssClass="table table-borderless" BorderStyle="None" >
                         <Columns>
                             <asp:TemplateField>
                                 <ItemTemplate>
