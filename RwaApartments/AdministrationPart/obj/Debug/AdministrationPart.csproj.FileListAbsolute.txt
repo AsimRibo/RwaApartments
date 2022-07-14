@@ -128,3 +128,5 @@ C:\Users\asim2\Desktop\RWA\RwaApartments\AdministrationPart\obj\Debug\Administra
 C:\Users\asim2\Desktop\RWA\RwaApartments\AdministrationPart\obj\Debug\AdministrationPart.csproj.CopyComplete
 C:\Users\asim2\Desktop\RWA\RwaApartments\AdministrationPart\obj\Debug\AdministrationPart.dll
 C:\Users\asim2\Desktop\RWA\RwaApartments\AdministrationPart\obj\Debug\AdministrationPart.pdb
+C:\Users\asim2\Desktop\RWA\RwaApartments\AdministrationPart\bin\Microsoft.AspNet.FriendlyUrls.dll
+C:\Users\asim2\Desktop\RWA\RwaApartments\AdministrationPart\bin\Microsoft.AspNet.FriendlyUrls.xml
